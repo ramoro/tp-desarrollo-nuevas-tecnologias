@@ -1,4 +1,4 @@
-<!-- role.gsp -->
+<!-- create.gsp -->
 <!DOCTYPE html>
 <html>
 <g:render template="/templates/head"  />

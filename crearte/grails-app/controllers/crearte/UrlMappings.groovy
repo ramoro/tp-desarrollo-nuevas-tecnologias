@@ -9,7 +9,8 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/role/index")
+        "/"(view:"/index")
+        "/create-role"(view:"/role/create")
         "500"(view:'/error')
         "404"(view:'/notFound')
     }
