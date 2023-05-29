@@ -4,6 +4,9 @@ class Role {
 
     String name
     String description
+    boolean hasLimitedSpots
+    int totalSpots
+    int occupiedSpots
 
     static constraints = {
         name blank: false, nullable: false

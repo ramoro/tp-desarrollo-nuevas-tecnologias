@@ -3,7 +3,7 @@ package crearte
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class ArtistSpec extends Specification implements DomainUnitTest<Artist> {
+class ApplicationSpec extends Specification implements DomainUnitTest<Application> {
 
     def setup() {
     }

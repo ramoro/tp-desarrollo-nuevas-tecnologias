@@ -3,10 +3,12 @@ import java.time.*
 
 class Project {
 
+    String name
     String description
-    LocalDate originalPublicationDate
-    LocalDate finalPublicationDate
+    LocalDate publicationDate
+    LocalDate expirationDate
     List<Role> roles
+    ProjectState state
 
     static constraints = {
         description blank: false, nullable: false, minSize: 100
