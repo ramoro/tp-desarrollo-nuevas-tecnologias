@@ -1,13 +1,14 @@
 package crearte
 import java.time.*
 
-class Project {
+class ProjectPublication {
 
     String name
     String description
     LocalDate publicationDate
     LocalDate expirationDate
     List<Role> roles
+    List<String> plantillas
     ProjectState state
 
     static constraints = {
