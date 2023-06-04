@@ -1,7 +1,7 @@
 package crearte
 import java.time.*
 
-class ProjectPublication {
+class Project {
 
     String name
     String description
