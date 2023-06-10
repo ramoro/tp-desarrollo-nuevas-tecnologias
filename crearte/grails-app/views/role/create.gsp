@@ -6,7 +6,7 @@
   <div class="container">
     <h1>Crear rol</h1>
     <div class="form-container">
-      <g:form controller="roles" action="save">
+      <g:form controller="role" action="save">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
           <g:textField name="nombre" id="nombre" required="true" class="form-control"/>

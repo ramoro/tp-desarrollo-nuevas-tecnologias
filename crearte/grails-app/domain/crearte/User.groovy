@@ -6,6 +6,7 @@ class User {
     String name
     String lastName
     String description
+    Set<Project> projects
 
     static constraints = {
         dni matches: /\d{8}/, blank: false, nullable: false
