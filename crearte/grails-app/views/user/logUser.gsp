@@ -8,23 +8,23 @@
     <div class="form-container">
       <g:form controller="user" action="logUser">
         <div class="form-group">
-          <label for="nombre">Nombre:</label>
-          <g:textField name="nombre" id="nombre" required="true" class="form-control"/>
+          <label for="name">Nombre:</label>
+          <g:textField name="name" id="name" required="true" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="nombre">Apellido:</label>
-          <g:textField name="apellido" id="apellido" required="true" class="form-control"/>
+          <label for="lastName">Apellido:</label>
+          <g:textField name="lastName" id="lastName" required="true" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="nombre">DNI:</label>
+          <label for="dni">DNI:</label>
           <g:textField name="dni" id="dni" required="true" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="descripcion">Descripción:</label>
-          <g:textArea name="descripcion" id="descripcion" required="true" rows="5" cols="40" style="resize:none;" class="form-control"/>
+          <label for="description">Descripción:</label>
+          <g:textArea name="description" id="description" required="true" rows="5" cols="40" style="resize:none;" class="form-control"/>
         </div>
 
 

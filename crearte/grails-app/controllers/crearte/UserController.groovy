@@ -4,10 +4,10 @@ class UserController {
 
     def logUser() {
         User user = new User(
-            name: params.nombre,
-            lastName: params.apellido,
+            name: params.name,
+            lastName: params.lastName,
             dni: params.dni,
-            description: params.descripcion,
+            description: params.description,
         ).save(failOnError: true)
 
         redirect action: 'showProfile', params: [dni: user.dni]

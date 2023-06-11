@@ -12,21 +12,17 @@
         </g:if>
 
         <div class="form-group">
-          <label for="nombre">Nombre:</label>
-          <g:textField name="nombre" id="nombre" required="true" class="form-control"/>
+          <label for="name">Nombre:</label>
+          <g:textField name="name" id="name" required="true" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="descripcion">Descripción:</label>
-          <g:if test="${existingName}">
-            <g:textArea name="descripcion" id="descripcion" required="true" rows="5" cols="40" style="resize:none;" class="form-control"/>
-          </g:if>
-          <g:else>
-            <g:textArea name="descripcion" id="descripcion" required="true" rows="5" cols="40" style="resize:none;" class="form-control">
-              ${description}
+          <label for="description">Descripción:</label>
+            <g:textArea name="description" id="description" required="true" rows="5" cols="40" style="resize:none;" class="form-control">
+              ${params.description}
             </g:textArea>
-          </g:else>
         </div>
+        <input type="hidden" id="dni" name="dni" value="${params.dni}">
 
         <div class="form-group">
           <g:submitButton name="guardar" value="Guardar" class="btn btn-primary" />
