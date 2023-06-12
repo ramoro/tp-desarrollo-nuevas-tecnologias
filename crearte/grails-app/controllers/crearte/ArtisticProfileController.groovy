@@ -17,7 +17,7 @@ class ArtisticProfileController {
 
     def save() {
 
-        ArtisticProfile artisticProfile = ArtisticProfile.findByName(params.name)
+        ArtisticProfile artisticProfile = ArtisticProfile.findByArtisticName(params.name)
 
         if (artisticProfile) {
             flash.error = "Ya existe un proyecto con el nombre ${params.name}"

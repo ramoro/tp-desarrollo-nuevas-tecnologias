@@ -17,33 +17,33 @@
         </div>
         
         <div class="form-group">
-          <label for="name">Localidad:</label>
+          <label for="locality">Localidad:</label>
           <g:textField name="locality" id="locality" required="true" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="name">Edad:</label>
+          <label for="age">Edad:</label>
           <g:textField name="age" id="age" required="true" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="name">Altura:</label>
+          <label for="height">Altura:</label>
           <g:textField name="height" id="height" required="true" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="name">Peso:</label>
+          <label for="weight">Peso:</label>
           <g:textField name="weight" id="weight" required="true" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="name">Enlace:</label>
+          <label for="reelLink">Enlace:</label>
           <g:textField name="reelLink" id="reelLink" required="false" class="form-control"/>
         </div>
 
 
         <div class="form-group">
-          <label for="name">Fotos:</label>
+          <label for="photos">Fotos:</label>
           <g:textField name="photos" id="photos" required="false" class="form-control"/>
         </div>
 
