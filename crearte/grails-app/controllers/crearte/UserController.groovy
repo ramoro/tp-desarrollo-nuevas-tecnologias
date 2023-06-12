@@ -8,6 +8,7 @@ class UserController {
             lastName: params.lastName,
             dni: params.dni,
             description: params.description,
+            projects: new HashSet<>()
         ).save(failOnError: true)
 
         redirect action: 'showProfile', params: [dni: user.dni]

@@ -18,9 +18,7 @@
 
         <div class="form-group">
           <label for="description">Descripción:</label>
-            <g:textArea name="description" id="description" required="true" rows="5" cols="40" style="resize:none;" class="form-control">
-              ${params.description}
-            </g:textArea>
+            <g:textArea name="description" id="description" required="true" rows="5" columns="40" minlength="100" maxlength="255" value="${params.description}" style="resize:none;" class="form-control"/>
         </div>
         <input type="hidden" id="dni" name="dni" value="${params.dni}">
 

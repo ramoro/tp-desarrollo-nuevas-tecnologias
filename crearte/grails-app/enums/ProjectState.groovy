@@ -1,4 +1,5 @@
 enum ProjectState {
+    DRAFT('Borrador'),
     PUBLISHED('Publicado'),
     EXPIRED('Vencido'),
     COMPLETED('Completado'),

@@ -9,12 +9,12 @@ class Project {
     LocalDate expirationDate
     List<Role> roles
     List<String> plantillas
-    ProjectState state
+    String state
 
     static constraints = {
         description blank: false, nullable: false, minSize: 100
-        originalPublicationDate blank: false, nullable: false
-        finalPublicationDate blank: false, nullable: false
-        roles blank: false, nullable:false
+        state blank: false, nullable: false
+        publicationDate nullable: true
+        expirationDate nullable: true
     }
 }

@@ -8,25 +8,25 @@
     <div class="form-container">
       <g:form controller="role" action="save">
         <div class="form-group">
-          <label for="nombre">Nombre:</label>
+          <label for="name">Nombre:</label>
           <g:textField name="nombre" id="nombre" required="true" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="descripcion">Descripción:</label>
+          <label for="description">Descripción:</label>
           <g:textArea name="descripcion" id="descripcion" required="true" rows="5" cols="40" style="resize:none;" class="form-control"/>
         </div>
 
         <div class="form-group">
-          <label for="cuposLimitados">Cupos limitados:</label>
+          <label for="hasLimitedSpots">Cupos limitados:</label>
           <div class="checkbox-container">
-            <g:checkBox name="cuposLimitados" id="cuposLimitados" onchange="mostrarCupos()" class="form-check-input" />
+            <g:checkBox name="hasLimitedSpots" id="hasLimitedSpots" onchange="showSpots()" class="form-check-input" />
           </div>
         </div>
 
-        <div id="campoCupos" style="display:none" class="form-group">
-          <label for="cantidadCupos">Cantidad de cupos:</label>
-          <g:textField name="cantidadCupos" id="cantidadCupos" class="form-control"/>
+        <div id="spots" style="display:none" class="form-group">
+          <label for="totalSpots">Cantidad de cupos:</label>
+          <g:textField name="totalSpots" id="totalSpots" class="form-control"/>
         </div>
 
         <div class="form-group">
@@ -37,11 +37,11 @@
   </div>
 
   <script>
-    function mostrarCupos() {
-      if (document.getElementById('cuposLimitados').checked) {
-        document.getElementById('campoCupos').style.display = 'block';
+    function showSpots() {
+      if (document.getElementById('hasLimitedSpots').checked) {
+        document.getElementById('spots').style.display = 'block';
       } else {
-        document.getElementById('campoCupos').style.display = 'none';
+        document.getElementById('spots').style.display = 'none';
       }
     }
   </script>
