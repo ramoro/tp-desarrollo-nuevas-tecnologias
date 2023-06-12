@@ -26,5 +26,10 @@ class UserController {
         }
     }
 
+    def listProjects(String dni) {
+        User user = User.findByDni(params.dni)
+
+        render user.projects
+    }
 
 }

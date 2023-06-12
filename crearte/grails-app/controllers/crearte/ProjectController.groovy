@@ -2,6 +2,8 @@ package crearte
 
 class ProjectController {
 
+    ProjectService projectService
+
     def create() { 
         String dni = params.dni
         // Puedes realizar cualquier lógica adicional aquí si es necesario
@@ -11,6 +13,7 @@ class ProjectController {
     }
 
     def save() {
+
         Project existingProject = Project.findByName(params.name)
 
         if (existingProject) {
@@ -19,17 +22,12 @@ class ProjectController {
             render(view: '/project/create', model: [existingName: params.name, description: params.description, dni: params.dni])
             return
         } else {
-            Project project = new Project(
-                name: params.name,
-                description: params.description,
-                state: "draft"
-            ).save(failOnError: true)
-            
-            User user = User.findByDni(params.dni)
-            user.projects.add(project)
+            projectService.createProject(params.name, params.dni, params.description)
 
             flash.success = "Proyecto creado exitosamente"
             render(view: 'save', model: [projectName: params.name, dni: params.dni])
         }
+        
+        
     }
 }

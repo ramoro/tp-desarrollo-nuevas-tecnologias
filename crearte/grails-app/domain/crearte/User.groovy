@@ -11,4 +11,6 @@ class User {
     static constraints = {
         dni matches: /\d{8}/, blank: false, nullable: false
     }
+
+    static hasMany = [projects: Project]
 }
