@@ -6,8 +6,6 @@ class ProjectController {
 
     def create() { 
         String dni = params.dni
-        // Puedes realizar cualquier lógica adicional aquí si es necesario
-
         [dni: dni] // Pasamos el dni a la vista
         render(view: '/project/create')
     }
@@ -18,7 +16,6 @@ class ProjectController {
 
         if (existingProject) {
             flash.error = "Ya existe un proyecto con el nombre ${params.name}"
-            // Pasamos el dni a la vista
             render(view: '/project/create', model: [existingName: params.name, description: params.description, dni: params.dni])
             return
         } else {

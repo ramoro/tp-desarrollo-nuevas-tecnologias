@@ -4,7 +4,7 @@
 <g:render template="/templates/head"  />
 <body>
   <div class="container">
-    <h1>Crear rol</h1>
+    <h1>Crear Rol para Proyecto ${params.projectName}</h1>
     <div class="form-container">
       <g:form controller="role" action="save">
         <div class="form-group">

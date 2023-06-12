@@ -6,7 +6,7 @@
   <div class="container">
     <h1>Proyecto creado</h1>
     <div class="form-container">
-        <div class="alert alert-success" role="alert">El proyecto ${params.name} se creo correctamente en estado borrador! </div>
+        <div class="alert alert-success" role="alert">El proyecto <strong>${params.name}</strong> se creo correctamente en estado borrador! </div>
     </div>
 
 

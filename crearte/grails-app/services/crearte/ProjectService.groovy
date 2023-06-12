@@ -1,5 +1,6 @@
 package crearte
 
+import java.time.*
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -9,7 +10,8 @@ class ProjectService {
         Project project = new Project(
                 name: name,
                 description: description,
-                state: "draft"
+                state: "draft",
+                creationDate: LocalDateTime.now()
             ).save(failOnError: true)
             
         User user = User.findByDni(dni)
