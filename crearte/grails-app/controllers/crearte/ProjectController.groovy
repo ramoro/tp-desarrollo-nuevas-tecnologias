@@ -29,7 +29,7 @@ class ProjectController {
             user.projects.add(project)
 
             flash.success = "Proyecto creado exitosamente"
-            render(view: 'save', model: [projectName: params.name])
+            render(view: 'save', model: [projectName: params.name, dni: params.dni])
         }
     }
 }

@@ -8,4 +8,11 @@
     <div class="form-container">
         <div class="alert alert-success" role="alert">El proyecto ${params.name} se creo correctamente en estado borrador! </div>
     </div>
+
+
+    <g:link controller="user" action="showProfile" params="[dni: params.dni]">
+      Volver al Perfil
+    </g:link>
   </div>
+</body>
+</html>
