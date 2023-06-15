@@ -10,7 +10,7 @@
             <div class="shadow p-3 mb-5 bg-white rounded">
                 <ul class="list-group">
                     <g:each in="${sortedProjects}" var="project">
-                        <a href="#" class="list-group-item list-group-item-action">${project.name}</a>
+                         <a href="${g.createLink(controller: 'project', action: 'show', params: [name: project.name])}" class="list-group-item list-group-item-action">${project.name}</a>
                     </g:each>
                 </ul>
             </div>

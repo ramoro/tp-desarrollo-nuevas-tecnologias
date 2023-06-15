@@ -25,6 +25,11 @@ class ProjectController {
             render(view: 'save', model: [projectName: params.name, dni: params.dni])
         }
         
-        
+    }
+
+    def show() {
+        Project project = Project.findByName(params.name)
+
+        render(view: '/project/show', model: [project: project])
     }
 }

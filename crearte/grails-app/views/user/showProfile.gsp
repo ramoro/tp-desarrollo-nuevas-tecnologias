@@ -3,16 +3,27 @@
 <html>
 <g:render template="/templates/head"  />
 <body>
-  <div class="container">
-    <h1>Perfil Usuario</h1>
-      <div>
-          <a href="${g.createLink(controller: 'project', action: 'create', params: [dni: params.dni])}" class="btn btn-primary" class="btn btn-primary">Crear Proyecto</a>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+    <a class="navbar-brand">Perfil Usuario</a>
+    </button>
 
-      <div>
-          <a href="${g.createLink(controller: 'user', action: 'listProjects', params: [dni: params.dni])}" class="btn btn-primary" class="btn btn-primary">Ver proyectos</a>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link shadow" href="${g.createLink(controller: 'project', action: 'create', params: [dni: params.dni])}" style="text-color:blue">Crear Proyecto <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link shadow" href="${g.createLink(controller: 'user', action: 'listProjects', params: [dni: params.dni])}">Mis Proyectos <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
 
-  </div>
+    </div>
+  </nav>
 </body>
 </html>
+
+<style>
+.bg-custom {
+  background-color: #b4e6b0;
+}
+</style>

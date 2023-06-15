@@ -44,10 +44,6 @@ class UserController {
                 return project2.creationDate <=> project1.creationDate
             }
         }
-        print(sortedProjects[0].name)
-        print(sortedProjects[0].creationDate)
-        print(sortedProjects[1].name)
-        print(sortedProjects[1].creationDate)
         render(view: '/project/listProjects', model: [sortedProjects: sortedProjects, dni:user.dni])
     }
 
