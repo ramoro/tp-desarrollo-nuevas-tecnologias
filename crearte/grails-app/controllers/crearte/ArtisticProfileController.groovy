@@ -24,7 +24,10 @@ class ArtisticProfileController {
             // Pasamos el dni a la vista
             render(view: '/artisticProfile/create', model: [existingName: params.name, dni: params.dni])
         } else {
-            artisticProfileService.createArtisticProfile(params.dni, artisticProfile)
+            int age = params.age as Integer
+            float weight = params.weight as Float
+            float height = params.height as Float
+            artisticProfileService.createArtisticProfile(params.name, params.locality, age, height, weight, params.reel_link, params.dni)
 
             flash.success = "Proyecto creado exitosamente"
             render(view: 'save', model: [projectName: params.name, dni: params.dni])

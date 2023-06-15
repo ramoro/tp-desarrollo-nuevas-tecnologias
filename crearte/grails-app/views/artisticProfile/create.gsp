@@ -37,8 +37,8 @@
         </div>
 
         <div class="form-group">
-          <label for="reelLink">Enlace:</label>
-          <g:textField name="reelLink" id="reelLink" required="false" class="form-control"/>
+          <label for="reel_link">Enlace:</label>
+          <g:textField name="reel_link" id="reel_link" required="false" class="form-control"/>
         </div>
 
 

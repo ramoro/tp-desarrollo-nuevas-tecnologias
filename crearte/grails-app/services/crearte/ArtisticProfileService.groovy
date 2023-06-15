@@ -5,8 +5,7 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class ArtisticProfileService {
 
-    def createArtisticProfile(String dni, ArtisticProfile artisticProfile) {
-        /*
+    def createArtisticProfile(String name, String locality, int age, float height, float weight, String reel_link, String dni) {
         ArtisticProfile artisticProfile = new ArtisticProfile(
                 artisticName: name,
                 locality: locality,
@@ -14,7 +13,7 @@ class ArtisticProfileService {
                 height : height,
                 weight : weight,
                 reelLink: reel_link
-            ).save(failOnError: true)*/
+            ).save(failOnError: true)
             
         User user = User.findByDni(dni)
         user.artisticProfiles.add(artisticProfile)
