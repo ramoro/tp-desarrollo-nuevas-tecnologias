@@ -4,18 +4,26 @@
 <html>
 <body>
     <div class="container">
-     <div class="row">
-        <div class="col-md-6">
-            <h1>Tus proyectos</h1>
-            <div class="shadow p-3 mb-5 bg-white rounded">
-                <ul class="list-group">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Tus proyectos</h1>
+                <div class="list-group">
                     <g:each in="${sortedProjects}" var="project">
-                         <a href="${g.createLink(controller: 'project', action: 'show', params: [name: project.name])}" class="list-group-item list-group-item-action">${project.name}</a>
+                        <div class="card mb-3 shadow-sm rounded">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="${g.createLink(controller: 'project', action: 'show', params: [name: project.name])}">${project.name}</a></h5>
+                                <a href="${g.createLink(controller: 'role', action: 'create', params: [projectName: project.name])}">+ Crear rol</a>
+                            </div>
+                        </div>
                     </g:each>
-                </ul>
+                </div>
             </div>
-        </div>    
-     </div>
-    </div>
-</body>
+        </d
 </html>
+
+<style>
+    .card {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+    }
+</style>

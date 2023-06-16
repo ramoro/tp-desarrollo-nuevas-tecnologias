@@ -3,7 +3,7 @@
 <html>
 <g:render template="/templates/head"  />
 <body>
-  <div class="container">
+  <div class="container" style="background-color:white">
     <h1>Entrar con Usuario</h1>
     <div class="form-container">
       <g:form controller="user" action="logUser">

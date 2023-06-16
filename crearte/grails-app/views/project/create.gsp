@@ -3,7 +3,7 @@
 <html>
 <g:render template="/templates/head"  />
 <body>
-  <div class="container">
+  <div class="container" style="background-color:white">
     <h1>Crear Proyecto</h1>
     <div class="form-container">
       <g:form controller="project" action="save">

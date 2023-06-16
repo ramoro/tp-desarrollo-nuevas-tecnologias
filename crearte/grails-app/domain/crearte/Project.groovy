@@ -8,9 +8,11 @@ class Project {
     LocalDateTime creationDate
     LocalDateTime publicationDate
     LocalDateTime expirationDate
-    List<Role> roles
-    List<String> plantillas
+    Set<Role> roles = []
+    Set<String> plantillas
     String state
+
+    static hasMany = [roles: Role]
 
     static constraints = {
         description blank: false, nullable: false, minSize: 100
