@@ -15,6 +15,11 @@
         <li class="nav-item">
           <a class="nav-link shadow" href="${g.createLink(controller: 'user', action: 'listProjects', params: [dni: params.dni])}">Mis Proyectos <span class="sr-only">(current)</span></a>
         </li>
+
+        
+        <li>
+          <a class="nav-link shadow" href="${g.createLink(controller: 'artisticProfile', action: 'create', params: [dni: params.dni])}">Crear Perfil artístico</a>
+        </li>
       </ul>
 
     </div>

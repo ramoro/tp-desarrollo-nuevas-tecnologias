@@ -7,6 +7,7 @@ class User {
     String lastName
     String description
     Set<Project> projects = []
+    Set<ArtisticProfile> artisticProfiles = []
 
     static hasMany = [projects: Project]
 

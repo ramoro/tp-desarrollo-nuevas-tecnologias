@@ -6,7 +6,7 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class ProjectService {
 
-    def createProject(String name,String dni,String description) {
+    def createProject(String name, String dni, String description) {
         Project project = new Project(
                 name: name,
                 description: description,

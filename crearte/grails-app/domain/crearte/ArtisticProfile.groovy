@@ -14,7 +14,7 @@ class ArtisticProfile {
         artisticName blank: false, nullable: false
         age range: 16..150
         height range: 0.5..3
-        weight range: 60..300
+        weight range: 40..300
     }
 
     
