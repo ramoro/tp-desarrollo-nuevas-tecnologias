@@ -34,4 +34,12 @@ class UserController {
         render(view: '/project/listProjects', model: [sortedProjects: sortedProjects, dni:user.dni])
     }
 
+    def listArtisticProfiles(String dni) {
+        User user = User.findByDni(dni)
+
+        Set<ArtisticProfile> artisticProfiles = user.getArtisticProfiles()
+
+        render(view: '/artisticProfile/listArtisticProfiles', model: [artisticProfiles: artisticProfiles, dni:user.dni])
+    }
+
 }

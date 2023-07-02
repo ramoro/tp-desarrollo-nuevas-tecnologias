@@ -55,8 +55,8 @@
       </g:form>
 
       <g:link controller="user" action="showProfile" params="[dni: params.dni]">
-      Volver al Perfil
-    </g:link>
+        Volver al Perfil
+      </g:link>
     </div>
   </div>
 

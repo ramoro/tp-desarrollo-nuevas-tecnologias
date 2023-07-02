@@ -20,10 +20,17 @@
         <li>
           <a class="nav-link shadow" href="${g.createLink(controller: 'artisticProfile', action: 'create', params: [dni: params.dni])}">Crear Perfil artístico</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link shadow" href="${g.createLink(controller: 'user', action: 'listArtisticProfiles', params: [dni: params.dni])}">Mis Perfies Artisticos<span class="sr-only">(current)</span></a>
+        </li>
       </ul>
 
     </div>
+
   </nav>
+
+  ${params}
+  
 </body>
 </html>
 
