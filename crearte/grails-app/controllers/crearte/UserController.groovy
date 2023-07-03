@@ -10,7 +10,7 @@ class UserController {
             description: params.description
         ).save(failOnError: true)
 
-        redirect action: 'showProfile', params: [dni: user.dni]
+        redirect action: 'showProfile', params: [dni: user.dni, name:user.name,lastName:user.lastName,description: user.description]
     }
 
     def showProfile(String dni) {
