@@ -1,4 +1,5 @@
 package crearte
+import java.time.*;
 
 class ProjectController {
 
@@ -29,6 +30,22 @@ class ProjectController {
 
     def show() {
         Project project = Project.findByName(params.name)
+
+        render(view: '/project/show', model: [project: project])
+    }
+
+    def publish() {
+        LocalDateTime publicationDate = LocalDateTime.of(
+            params.publicationDate_year.toInteger(),
+            params.publicationDate_month.toInteger(),
+            params.publicationDate_day.toInteger(),0,0);
+
+        // try catch
+        Project project = projectService.publish(params.name, publicationDate)
+        if (project)
+            flash.success = "Proyecto publicado exitosamente"
+        else 
+            flash.error = "El proyecto no cumple con las condiciones para ser publicado"
 
         render(view: '/project/show', model: [project: project])
     }

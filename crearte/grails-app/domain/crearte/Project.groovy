@@ -3,6 +3,11 @@ import java.time.*
 
 class Project {
 
+    enum ProjectState {
+        DRAFT,
+        PUBLISHED
+    }
+
     String name
     String description
     LocalDateTime creationDate
@@ -10,7 +15,7 @@ class Project {
     LocalDateTime expirationDate
     Set<Role> roles = []
     Set<String> plantillas
-    String state
+    ProjectState state
 
     static hasMany = [roles: Role]
 
@@ -20,5 +25,11 @@ class Project {
         creationDate nullable: false
         publicationDate nullable: true
         expirationDate nullable: true
+    }
+
+    boolean can_be_published(LocalDateTime publicationDate) {
+        return this.state == ProjectState.DRAFT &&
+               this.creationDate < publicationDate &&
+               this.roles.size() >= 1;
     }
 }

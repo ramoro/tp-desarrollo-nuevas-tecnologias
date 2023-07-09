@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <g:render template="/templates/head" />
 <html>
+
 <body>
     <div class="container">
         <h1 style="margin:10px">Mi proyecto <strong> ${project.name} </strong></h1>
@@ -39,9 +40,15 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <g:submitButton name="Publicar" value="Publicar" class="btn btn-primary" />
-        </div>
+        <g:form controller="project" action="publish">
+            <h4>Fecha de publicacion</h4>
+            <g:hiddenField name="name" value="${params.name}"/>
+            <g:datePicker name="publicationDate" value="${new Date()}" precision="day"
+              noSelection="['':'-Choose-']" relativeYears="[-2..7]"/>
+            <div class="form-group">
+                <g:submitButton name="publicar" value="Publicar" class="btn btn-primary" />
+            </div>
+        </g:form>
     </div>
 </body>
 
