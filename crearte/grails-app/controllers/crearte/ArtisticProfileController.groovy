@@ -17,6 +17,12 @@ class ArtisticProfileController {
         render(view: '/artisticProfile/create')
     }
 
+    def show() { 
+        ArtisticProfile artisticProfile = ArtisticProfile.findByArtisticName(params.name)
+
+        render(view: '/artisticProfile/show', model: [artisticProfile: artisticProfile])
+    }
+
     def save() {
 
         ArtisticProfile artisticProfile = ArtisticProfile.findByArtisticName(params.name)

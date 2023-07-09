@@ -10,7 +10,7 @@ class UserController {
             description: params.description
         ).save(failOnError: true)
 
-        redirect action: 'showProfile', params: [dni: user.dni]
+        redirect action: 'showProfile', params: [dni: user.dni, name:user.name,lastName:user.lastName,description: user.description]
     }
 
     def showProfile(String dni) {
@@ -32,6 +32,14 @@ class UserController {
         Set<Project> sortedProjects = user.getSortedProjects()
 
         render(view: '/project/listProjects', model: [sortedProjects: sortedProjects, dni:user.dni])
+    }
+
+    def listArtisticProfiles(String dni) {
+        User user = User.findByDni(dni)
+
+        Set<ArtisticProfile> artisticProfiles = user.getArtisticProfiles()
+
+        render(view: '/artisticProfile/listArtisticProfiles', model: [artisticProfiles: artisticProfiles, dni:user.dni])
     }
 
 }

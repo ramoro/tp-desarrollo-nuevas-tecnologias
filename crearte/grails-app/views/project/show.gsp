@@ -1,6 +1,6 @@
 <!-- show.gsp -->
 <!DOCTYPE html>
-<g:render template="/templates/head"  />
+<g:render template="/templates/head" />
 <html>
 <body>
     <div class="container">
@@ -38,12 +38,11 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group">
+            <g:submitButton name="Publicar" value="Publicar" class="btn btn-primary" />
+        </div>
     </div>
 </body>
-</html>
 
-<style>
-.bg-custom {
-  background-color: #b4e6b0;
-}
-</style>
+</html>
