@@ -21,7 +21,7 @@ class ProjectController {
         } else {
             projectService.createProject(params.name, params.dni, params.description)
 
-            flash.success = "Proyecto creado exitosamente"
+            flash.success = "Proyecto creado exitosamente con el nombre ${params.name}"
             render(view: 'save', model: [projectName: params.name, dni: params.dni])
         }
         

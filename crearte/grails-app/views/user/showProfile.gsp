@@ -21,14 +21,49 @@
           <a class="nav-link shadow" href="${g.createLink(controller: 'artisticProfile', action: 'create', params: [dni: params.dni])}">Crear Perfil artístico</a>
         </li>
       </ul>
-
     </div>
   </nav>
+  <div class="user-presentation">
+    <h1>${user.name} ${user.lastName}</h1>
+  </div>
+  <div class="user-description">
+      <p>${user.description}</p>
+  </div>
+
 </body>
 </html>
 
 <style>
 .bg-custom {
   background-color: #b4e6b0;
+}
+
+.user-presentation {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+}
+
+
+.user-description {
+ border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.user-description p {
+  text-align: center;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  font-style: italic;
 }
 </style>

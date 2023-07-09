@@ -44,6 +44,9 @@ environments:
             endpoints:
                 enabled-by-default: false
 
+upload:
+    directory: /home/ramiro/Escritorio/Desarrollo con nuevas tecnologias/TP/tp-desarrollo-nuevas-tecnologias/crearte/tmp/FotosPerfiles
+
 ---
 grails:
     mime:

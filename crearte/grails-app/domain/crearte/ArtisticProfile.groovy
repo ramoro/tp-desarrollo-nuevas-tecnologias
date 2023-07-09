@@ -8,7 +8,7 @@ class ArtisticProfile {
     float height
     float weight
     String reelLink
-    List<String> photos
+    String profileImage
 
     static constraints = {
         artisticName blank: false, nullable: false

@@ -6,7 +6,7 @@
   <div class="container">
     <h1>Crear Perfil artístico</h1>
     <div class="form-container">
-      <g:form controller="artisticProfile" action="save">
+      <g:form controller="artisticProfile" action="save" enctype="multipart/form-data">
         <g:if test="${existingName}">
           <div class="alert alert-danger" role="alert">Ya existe un perfil artístico con el nombre ${existingName}</div>
         </g:if>
@@ -43,8 +43,8 @@
 
 
         <div class="form-group">
-          <label for="photos">Fotos:</label>
-          <g:textField name="photos" id="photos" required="false" class="form-control"/>
+          <label for="profileImage">Foto:</label>
+        <input type="file" name="profileImage" accept="image/*" required="true" />
         </div>
 
         <input type="hidden" id="dni" name="dni" value="${params.dni}">
