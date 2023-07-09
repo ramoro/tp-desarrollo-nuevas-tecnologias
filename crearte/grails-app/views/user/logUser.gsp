@@ -35,28 +35,6 @@
     </div>
   </div>
 
-  <style>
-    .container {
-      max-width: 600px;
-      margin-top: 30px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      box-shadow: 0 0 5px #ccc;
-    }
-
-    .form-container {
-      margin-top: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-  </style>
 </body>
 
 </html>

@@ -1,7 +1,8 @@
 <!-- listProjects.gsp -->
 <!DOCTYPE html>
-<g:render template="/templates/head"  />
+<g:render template="/templates/head" />
 <html>
+
 <body>
     <div class="container">
         <div class="row">
@@ -11,19 +12,22 @@
                     <g:each in="${sortedProjects}" var="project">
                         <div class="card mb-3 shadow-sm rounded">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="${g.createLink(controller: 'project', action: 'show', params: [name: project.name])}">${project.name}</a></h5>
-                                <a href="${g.createLink(controller: 'role', action: 'create', params: [projectName: project.name])}">+ Crear rol</a>
+                                <h5 class="card-title"><a
+                                        href="${g.createLink(controller: 'project', action: 'show', params: [name: project.name])}">${project.name}</a>
+                                </h5>
+                                <a
+                                    href="${g.createLink(controller: 'role', action: 'create', params: [projectName: project.name])}">+
+                                    Crear rol</a>
                             </div>
                         </div>
                     </g:each>
                 </div>
             </div>
-        </d
-</html>
+        </div>
+        <g:link controller="user" action="showProfile" params="[dni: params.dni]">
+            Volver al Perfil
+        </g:link>
+    </div>
+</body>
 
-<style>
-    .card {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 10px;
-    }
-</style>
+</html>

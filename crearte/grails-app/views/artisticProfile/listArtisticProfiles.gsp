@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <g:render template="/templates/head"  />
 <html>
+
 <body>
     <div class="container">
         <div class="row">
@@ -26,10 +27,3 @@
         </g:link>
     </div>
 </html>
-
-<style>
-    .card {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 10px;
-    }
-</style>

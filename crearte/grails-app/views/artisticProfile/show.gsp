@@ -20,9 +20,3 @@
     </div>
 </body>
 </html>
-
-<style>
-.bg-custom {
-  background-color: #b4e6b0;
-}
-</style>
