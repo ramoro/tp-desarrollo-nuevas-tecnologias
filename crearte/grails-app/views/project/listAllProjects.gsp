@@ -9,15 +9,12 @@
             <div class="col-md-6">
                 <h1>Proyectos publicados</h1>
                 <div class="list-group">
-                    <g:each in="${sortedProjects}" var="project">
+                    <g:each in="${projects}" var="project">
                         <div class="card mb-3 shadow-sm rounded">
                             <div class="card-body">
                                 <h5 class="card-title"><a
-                                        href="${g.createLink(controller: 'project', action: 'show', params: [name: project.name])}">${project.name}</a>
+                                        href="${g.createLink(controller: 'project', action: 'showOtherProject', params: [name: project.name])}">${project.name}</a>
                                 </h5>
-                                <a
-                                    href="${g.createLink(controller: 'role', action: 'create', params: [projectName: project.name])}">+
-                                    Crear rol</a>
                             </div>
                         </div>
                     </g:each>

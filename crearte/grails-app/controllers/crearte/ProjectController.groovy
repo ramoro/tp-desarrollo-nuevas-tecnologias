@@ -34,6 +34,12 @@ class ProjectController {
         render(view: '/project/show', model: [project: project])
     }
 
+    def showOtherProject() {
+        Project project = Project.findByName(params.name)
+
+        render(view: '/project/showOtherProject', model: [project: project])
+    }
+
     def publish() {
         LocalDateTime publicationDate = LocalDateTime.of(
             params.publicationDate_year.toInteger(),
@@ -58,6 +64,6 @@ class ProjectController {
             it.userId != dni && it.state == Project.ProjectState.PUBLISHED;
         }
 
-        render(view: '/project/listAllProjects', model: [sortedProjects: projects, dni:params.dni])
+        render(view: '/project/listAllProjects', model: [projects: projects, dni:params.dni])
     }
 }
