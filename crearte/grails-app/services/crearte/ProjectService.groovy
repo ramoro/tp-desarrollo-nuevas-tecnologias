@@ -11,6 +11,7 @@ class ProjectService {
                 name: name,
                 description: description,
                 state: Project.ProjectState.DRAFT,
+                userId: dni,
                 creationDate: LocalDateTime.now()
             ).save(failOnError: true)
             

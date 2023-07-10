@@ -49,4 +49,15 @@ class ProjectController {
 
         render(view: '/project/show', model: [project: project])
     }
+
+    def listProjects() {
+        String dni = params.dni;
+        Set<Project> projects = Project.getAll();
+
+        projects = projects.findAll {
+            it.userId != dni && it.state == Project.ProjectState.PUBLISHED;
+        }
+
+        render(view: '/project/listAllProjects', model: [sortedProjects: projects, dni:params.dni])
+    }
 }

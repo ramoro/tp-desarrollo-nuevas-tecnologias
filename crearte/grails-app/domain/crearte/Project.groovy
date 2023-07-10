@@ -16,12 +16,14 @@ class Project {
     Set<Role> roles = []
     Set<String> plantillas
     ProjectState state
+    String userId
 
     static hasMany = [roles: Role]
 
     static constraints = {
         description blank: false, nullable: false, minSize: 100
         state blank: false, nullable: false
+        userId blank:false, nullable: false
         creationDate nullable: false
         publicationDate nullable: true
         expirationDate nullable: true
