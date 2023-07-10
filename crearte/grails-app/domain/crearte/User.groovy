@@ -15,6 +15,12 @@ class User {
         dni matches: /\d{8}/, blank: false, nullable: false
     }
 
+    static class InvalidProfileChangeException extends Exception {
+        InvalidProfileChangeException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
+
     def getSortedProjects(){
         this.projects.sort { project1, project2 ->
             if (project1.state == "published" && project2.state != "published") {
@@ -31,6 +37,11 @@ class User {
                 return project2.creationDate <=> project1.creationDate
             }
         }
+    }
+
+    def hasActiveProfile() {
+
+        return this.artisticProfiles.any { profile -> profile.state == 1 }
     }
 
 }

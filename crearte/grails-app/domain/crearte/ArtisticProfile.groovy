@@ -9,6 +9,7 @@ class ArtisticProfile {
     float weight
     String reelLink
     String profileImage
+    int state //0 es inactivo, 1 es activo
 
     static constraints = {
         artisticName blank: false, nullable: false

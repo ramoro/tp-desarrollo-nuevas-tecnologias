@@ -13,7 +13,8 @@ class ArtisticProfileService {
                 height : height,
                 weight : weight,
                 reelLink: reelLink,
-                profileImage: profileImage
+                profileImage: profileImage,
+                state: 0
             ).save(failOnError: true)
             
         User user = User.findByDni(dni)

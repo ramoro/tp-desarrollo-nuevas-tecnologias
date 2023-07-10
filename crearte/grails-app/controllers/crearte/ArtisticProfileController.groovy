@@ -17,12 +17,6 @@ class ArtisticProfileController {
         render(view: '/artisticProfile/create')
     }
 
-    def show() { 
-        ArtisticProfile artisticProfile = ArtisticProfile.findByArtisticName(params.name)
-
-        render(view: '/artisticProfile/show', model: [artisticProfile: artisticProfile])
-    }
-
     def save() {
 
         ArtisticProfile artisticProfile = ArtisticProfile.findByArtisticName(params.name)
@@ -59,11 +53,9 @@ class ArtisticProfileController {
 
             artisticProfileService.createArtisticProfile(params.name, params.locality, age, height, weight, params.reel_link, params.dni, fileName)
 
-            flash.success = "Perfil Artistico creado exitosamente"
+            flash.success = "Perfil artistico creado exitosamente"
             render(view: 'save', model: [projectName: params.name, dni: params.dni])
         }
-
-
     }
 
 }

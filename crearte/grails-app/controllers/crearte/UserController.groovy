@@ -2,6 +2,8 @@ package crearte
 
 class UserController {
 
+    UserService userService
+
     def logUser() {
         User user = new User(
             name: params.name,
@@ -34,12 +36,18 @@ class UserController {
         render(view: '/project/listProjects', model: [sortedProjects: sortedProjects, dni:user.dni])
     }
 
-    def listArtisticProfiles(String dni) {
-        User user = User.findByDni(dni)
+    def changeUserProfile() {
+        try {
+            userService.changeUserProfile(params.artisticName, params.dni)
+            redirect action: 'showProfile', params: [dni: params.dni]
+        } catch (Exception e) {
+            handleError(e)
+        }    
+    }
 
-        Set<ArtisticProfile> artisticProfiles = user.getArtisticProfiles()
-
-        render(view: '/artisticProfile/listArtisticProfiles', model: [artisticProfiles: artisticProfiles, dni:user.dni])
+    def handleError(Exception e){
+        def response = '{"error": "' + e.getMessage() + '"}'
+        render response, status: 500
     }
 
 }
