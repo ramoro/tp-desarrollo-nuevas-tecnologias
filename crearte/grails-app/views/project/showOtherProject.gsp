@@ -5,7 +5,7 @@
 
 <body>
     <div class="container">
-        <h1 style="margin:10px">Mi proyecto <strong> ${project.name} </strong></h1>
+        <h1 style="margin:10px">Proyecto <strong> ${project.name} </strong></h1>
         <div class="row">
             <div class="col-md-8">
                 <div class="card mb-3">
@@ -28,7 +28,22 @@
                         <g:if test="${project.roles}">
                             <ul>
                                 <g:each in="${project.roles}" var="role">
-                                    <li>${role.name}</li>
+
+
+                                    <li>
+                                        <g:form controller="postulation" action="create">
+                                            ${role.name}
+                                            
+                                            <g:hiddenField name="projectName" value="${params.name}" />
+                                            <g:hiddenField name="project" value="${project}" />
+                                            <g:hiddenField name="userId" value="${params.dni}" />
+                                            <div class="form-group">
+                                                <g:submitButton name="Postularse" value="Postularse"
+                                                    class="btn btn-primary" />
+                                            </div>
+                                        </g:form>
+                                    </li>
+
                                 </g:each>
                             </ul>
                         </g:if>
@@ -39,20 +54,6 @@
                 </div>
             </div>
         </div>
-        <g:if test="${project.state.toString() == 'DRAFT'}">
-            <g:form controller="project" action="publish">
-                <h4>Fecha de publicacion</h4>
-                <g:hiddenField name="name" value="${params.name}" />
-                <g:datePicker name="publicationDate" value="${new Date()}" precision="day" noSelection="['':'-Choose-']"
-                    relativeYears="[-2..7]" />
-                <div class="form-group">
-                    <g:submitButton name="publicar" value="Publicar" class="btn btn-primary" />
-                </div>
-            </g:form>
-        </g:if>
-        <g:else>
-            <div>Fecha de publicación: ${project.publicationDate}</div>
-        </g:else>
     </div>
 </body>
 

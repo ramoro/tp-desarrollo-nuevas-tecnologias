@@ -5,7 +5,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-custom">
-    <a class="navbar-brand">Perfil Usuario</a>
+    <a class="navbar-brand" href="${g.createLink(controller: 'user', action: 'showProfile', params: [dni: params.dni])}">Perfil Usuario</a>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,6 +24,11 @@
           <a class="nav-link shadow"
             href="${g.createLink(controller: 'artisticProfile', action: 'create', params: [dni: params.dni])}">Crear
             Perfil artístico</a>
+        </li>    
+        <li class="nav-item">
+          <a class="nav-link shadow"
+            href="${g.createLink(controller: 'project', action: 'listProjects', params: [dni: params.dni])}"
+            style="text-color:blue">Ver Proyectos<span class="sr-only">(current)</span></a>
         </li>
       </ul>
     </div>
