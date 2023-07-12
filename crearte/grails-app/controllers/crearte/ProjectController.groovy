@@ -25,7 +25,6 @@ class ProjectController {
             flash.success = "Proyecto creado exitosamente con el nombre ${params.name}"
             render(view: 'save', model: [projectName: params.name, dni: params.dni])
         }
-        
     }
 
     def show() {

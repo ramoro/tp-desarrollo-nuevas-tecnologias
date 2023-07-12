@@ -13,7 +13,7 @@
                         <div class="card mb-3 shadow-sm rounded">
                             <div class="card-body">
                                 <h5 class="card-title"><a
-                                        href="${g.createLink(controller: 'project', action: 'showOtherProject', params: [name: project.name])}">${project.name}</a>
+                                        href="${g.createLink(controller: 'project', action: 'showOtherProject', params: [name: project.name, dni:params.dni])}">${project.name}</a>
                                 </h5>
                             </div>
                         </div>
