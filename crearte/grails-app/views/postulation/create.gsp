@@ -7,7 +7,6 @@
     <div class="container">
         <h1 style="margin:10px">Hola ${postulation.user.name}!</h1>
         Te has postulado para el rol <strong>${postulation.role.name}</strong> en el proyecto <strong>${postulation.project.name}</strong> de <strong>${postulationProjectUser.name}</strong><br>
-        ${postulation.state}<br>
         <g:if test="${postulation.state == 'PENDING'}">
             Tu postulación se encuentra <strong>pendiente</strong>. Te notificaremos cuando ...
         </g:if>

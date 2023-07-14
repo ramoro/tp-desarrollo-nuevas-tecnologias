@@ -36,6 +36,13 @@ class UserController {
         render(view: '/project/listProjects', model: [sortedProjects: sortedProjects, dni:user.dni])
     }
 
+
+    def listNotifications(String dni) {
+        User user = User.findByDni(dni)
+
+        render(view: '/user/listNotifications', model: [notifications: user.notifications, dni:user.dni])
+    }
+
     def changeUserProfile() {
         try {
             userService.changeUserProfile(params.artisticName, params.dni)

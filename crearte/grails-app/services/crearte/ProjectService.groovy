@@ -11,8 +11,8 @@ class ProjectService {
                 name: name,
                 description: description,
                 state: Project.ProjectState.DRAFT,
-                userId: dni,
-                creationDate: LocalDateTime.now()
+                ownerDni: dni,
+                creationDate: LocalDate.now()
             ).save(failOnError: true)
             
         User user = User.findByDni(dni)
@@ -20,7 +20,8 @@ class ProjectService {
         user.save(flush:true)
     }
 
-    Project publish(String projectName, LocalDateTime publicationDate, LocalDateTime expirationDate){
+    Project publish(String projectName, LocalDate publicationDate, LocalDate expirationDate){
+
         Project project = Project.findByName(projectName);
 
         if (project && project.canBePublished(publicationDate, expirationDate)) {
@@ -31,6 +32,6 @@ class ProjectService {
             return project;
         }
 
-        throw RuntimeException;
+        throw new RuntimeException();
     }
 }

@@ -30,6 +30,11 @@
             href="${g.createLink(controller: 'project', action: 'listProjects', params: [dni: params.dni])}"
             style="text-color:blue">Ver Proyectos<span class="sr-only">(current)</span></a>
         </li>
+          <li class="nav-item">
+          <a class="nav-link shadow"
+            href="${g.createLink(controller: 'user', action: 'listNotifications', params: [dni: params.dni])}"
+            style="text-color:blue">Notificaciones<span class="sr-only">(current)</span></a>
+        </li>
       </ul>
     </div>
 

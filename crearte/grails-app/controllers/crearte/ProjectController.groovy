@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter
 class ProjectController {
 
     ProjectService projectService
+    UserService userService
 
     def create() { 
         String dni = params.dni
@@ -42,15 +43,15 @@ class ProjectController {
     }
 
     def publish() {
-        LocalDateTime publicationDate = LocalDateTime.of(
+        LocalDate publicationDate = LocalDate.of(
             params.publicationDate_year.toInteger(),
             params.publicationDate_month.toInteger(),
-            params.publicationDate_day.toInteger(),0,0)
+            params.publicationDate_day.toInteger())
 
-        LocalDateTime expirationDate = LocalDateTime.of(
-            params.publicationDate_year.toInteger(),
-            params.publicationDate_month.toInteger(),
-            params.publicationDate_day.toInteger(),0,0)
+        LocalDate expirationDate = LocalDate.of(
+            params.expirationDate_year.toInteger(),
+            params.expirationDate_month.toInteger(),
+            params.expirationDate_day.toInteger())
 
         // try catch
         Project project = projectService.publish(params.name, publicationDate, expirationDate)
@@ -67,24 +68,25 @@ class ProjectController {
         Set<Project> projects = Project.getAll();
 
         projects = projects.findAll {
-            it.userId != dni && it.state == Project.ProjectState.PUBLISHED;
+            it.ownerDni != dni && it.state == Project.ProjectState.PUBLISHED;
         }
 
         render(view: '/project/listAllProjects', model: [projects: projects, dni:params.dni])
     }
 
     def notifyIfNecessary() {
-        def dateString = params.date
-        def formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        def actualDate = LocalDate.parse(dateString, formatter).atStartOfDay()
+        String dateString = params.date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        LocalDate actualDate = LocalDate.parse(dateString, formatter)
         print(actualDate)
+
         def publishedProjects = Project.findAllByState(Project.ProjectState.PUBLISHED)
 
         print(publishedProjects)
         for (project in publishedProjects) {
             try {
                 if (project.isAboutToExpire(actualDate)){
-                    print("HOla bebe")
+                    userService.notifyUser(project.ownerDni, "Su projecto publicado de nombre ${project.name} esta por expirar.")
                 }
             } catch (Exception e) {
                 handleError(e)

@@ -8,6 +8,8 @@ class User {
     String description
     Set<Project> projects = []
     Set<ArtisticProfile> artisticProfiles = []
+    Set<Postulation> postulations = []
+    List<String> notifications = []
 
     static hasMany = [projects: Project]
 

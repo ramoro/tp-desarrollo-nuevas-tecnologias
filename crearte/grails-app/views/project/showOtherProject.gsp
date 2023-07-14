@@ -35,7 +35,7 @@
                                             ${role.name}
                                             
                                             <g:hiddenField name="projectName" value="${params.name}" />
-                                            <g:hiddenField name="userId" value="${params.dni}" />
+                                            <g:hiddenField name="ownerDni" value="${params.dni}" />
                                             <g:hiddenField name="roleName" value="${role.name}" />
                                             <div class="form-group">
                                                 <g:submitButton name="Postularse" value="Postularse"

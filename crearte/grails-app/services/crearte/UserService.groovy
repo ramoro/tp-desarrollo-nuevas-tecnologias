@@ -16,5 +16,11 @@ class UserService {
         profile.state = profile.state == 0 ? 1 : 0
         profile.save(flush:true)
     }
+    
+    def notifyUser(int userDni, String message) {
+        User user = User.findByDni(userDni)
+        user.notifications.add(message)
+        user.save(flush:true)
+    }
 }
 

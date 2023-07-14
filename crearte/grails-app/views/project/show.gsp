@@ -55,6 +55,7 @@
         </g:if>
         <g:else>
             <div>Fecha de publicación: ${project.publicationDate}</div>
+            <div>Fecha de expiración: ${project.expirationDate}</div>
         </g:else>
     </div>
 </body>

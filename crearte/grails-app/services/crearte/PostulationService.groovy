@@ -6,12 +6,20 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class PostulationService {
 
-    def createPostulation(String roleName, String userId, String projectName, LocalDate date) {
+    def createPostulation(String roleName, String ownerDni, String projectName, LocalDate date) {
 
         Role role = Role.findByName(roleName)
         assert role
-        User user = User.findByDni(userId)
+
+        if (!role.hasAvailableSpots())
+            throw new RuntimeException("Postulation has no available spots")
+
+        role.occupiedSpots += 1
+        role.save(flush: true, failOnError: true)
+
+        User user = User.findByDni(ownerDni)
         assert user
+
         Project project = Project.findByName(projectName)
         assert project
 
@@ -20,9 +28,16 @@ class PostulationService {
                 date: date,
                 role: role,
                 user: user,
-                project: project
-            ).save(failOnError: true)
-            
+                project: project)
+
+        def ps = Postulation.getAll()
+        for (Postulation p: ps) {
+            if (postulation.isEqual(p))
+                throw new RuntimeException("PostulationService postulation exists already")
+        }
+
+        postulation.save(failOnError: true)
+
         return postulation
     }
 }
