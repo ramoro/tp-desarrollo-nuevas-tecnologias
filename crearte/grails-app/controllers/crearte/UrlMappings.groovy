@@ -3,6 +3,8 @@ package crearte
 class UrlMappings {
 
     static mappings = {
+        "/notify-projects/$date?"(controller: "Project", action: "notifyIfNecessary")
+
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here

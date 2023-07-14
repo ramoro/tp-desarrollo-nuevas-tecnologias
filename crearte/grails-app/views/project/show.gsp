@@ -45,6 +45,9 @@
                 <g:hiddenField name="name" value="${params.name}" />
                 <g:datePicker name="publicationDate" value="${new Date()}" precision="day" noSelection="['':'-Choose-']"
                     relativeYears="[-2..7]" />
+                <h4>Fecha de expiracion</h4>
+                <g:datePicker name="expirationDate" value="${new Date()}" precision="day" noSelection="['':'-Choose-']"
+                    relativeYears="[-2..7]" />
                 <div class="form-group">
                     <g:submitButton name="publicar" value="Publicar" class="btn btn-primary" />
                 </div>

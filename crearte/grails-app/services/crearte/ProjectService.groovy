@@ -20,11 +20,12 @@ class ProjectService {
         user.save(flush:true)
     }
 
-    Project publish(String projectName, LocalDateTime publicationDate){
+    Project publish(String projectName, LocalDateTime publicationDate, LocalDateTime expirationDate){
         Project project = Project.findByName(projectName);
 
-        if (project && project.can_be_published(publicationDate)) {
+        if (project && project.canBePublished(publicationDate, expirationDate)) {
             project.publicationDate = publicationDate;
+            project.expirationDate = expirationDate;
             project.state = Project.ProjectState.PUBLISHED;
             project.save(flush: true, failOnError: true);
             return project;

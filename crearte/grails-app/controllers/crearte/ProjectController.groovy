@@ -1,5 +1,7 @@
 package crearte
-import java.time.*;
+import java.time.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ProjectController {
 
@@ -43,10 +45,15 @@ class ProjectController {
         LocalDateTime publicationDate = LocalDateTime.of(
             params.publicationDate_year.toInteger(),
             params.publicationDate_month.toInteger(),
-            params.publicationDate_day.toInteger(),0,0);
+            params.publicationDate_day.toInteger(),0,0)
+
+        LocalDateTime expirationDate = LocalDateTime.of(
+            params.publicationDate_year.toInteger(),
+            params.publicationDate_month.toInteger(),
+            params.publicationDate_day.toInteger(),0,0)
 
         // try catch
-        Project project = projectService.publish(params.name, publicationDate)
+        Project project = projectService.publish(params.name, publicationDate, expirationDate)
         if (project)
             flash.success = "Proyecto publicado exitosamente"
         else 
@@ -64,5 +71,31 @@ class ProjectController {
         }
 
         render(view: '/project/listAllProjects', model: [projects: projects, dni:params.dni])
+    }
+
+    def notifyIfNecessary() {
+        def dateString = params.date
+        def formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        def actualDate = LocalDate.parse(dateString, formatter).atStartOfDay()
+        print(actualDate)
+        def publishedProjects = Project.findAllByState(Project.ProjectState.PUBLISHED)
+
+        print(publishedProjects)
+        for (project in publishedProjects) {
+            try {
+                if (project.isAboutToExpire(actualDate)){
+                    print("HOla bebe")
+                }
+            } catch (Exception e) {
+                handleError(e)
+            }    
+        }
+
+        render (view:"/user/logUser")
+    }
+
+    def handleError(Exception e){
+        def response = '{"error": "' + e.getMessage() + '"}'
+        render response, status: 500
     }
 }
