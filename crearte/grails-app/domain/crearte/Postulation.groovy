@@ -22,4 +22,8 @@ class Postulation {
         state blank: false, nullable: false
     }
 
+    boolean isEqual(Postulation p){
+        return p.user == this.user && p.project == this.project && p.role == this.role
+    }
+
 }
