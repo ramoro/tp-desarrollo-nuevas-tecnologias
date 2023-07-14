@@ -40,10 +40,10 @@ class ProjectController {
     }
 
     def publish() {
-        LocalDateTime publicationDate = LocalDateTime.of(
+        LocalDate publicationDate = LocalDate.of(
             params.publicationDate_year.toInteger(),
             params.publicationDate_month.toInteger(),
-            params.publicationDate_day.toInteger(),0,0);
+            params.publicationDate_day.toInteger());
 
         // try catch
         Project project = projectService.publish(params.name, publicationDate)

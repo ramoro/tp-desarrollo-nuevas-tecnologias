@@ -10,9 +10,9 @@ class Project {
 
     String name
     String description
-    LocalDateTime creationDate
-    LocalDateTime publicationDate
-    LocalDateTime expirationDate
+    LocalDate creationDate
+    LocalDate publicationDate
+    LocalDate expirationDate
     Set<Role> roles = []
     Set<String> plantillas
     ProjectState state
@@ -29,9 +29,12 @@ class Project {
         expirationDate nullable: true
     }
 
-    boolean can_be_published(LocalDateTime publicationDate) {
+    boolean can_be_published(LocalDate publicationDate) {
+        if (this.state != ProjectState.DRAFT) throw new RuntimeException("Project is not a DRAFT")
+        if (this.creationDate > publicationDate) throw new RuntimeException("""Project has creationDate > publicationDate. $this.creationDate $publicationDate""")
+        if (this.roles.size() < 1) throw new RuntimeException("Project has no Roles")
         return this.state == ProjectState.DRAFT &&
-               this.creationDate < publicationDate &&
+               this.creationDate <= publicationDate &&
                this.roles.size() >= 1;
     }
 }

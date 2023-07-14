@@ -18,10 +18,15 @@ class Role {
         print("Entro a constructor!!!")
         this.name = name
         this.description = description
-        if (hasLimitedSpots && hasLimitedSpots == true) {
+        if (this.hasLimitedSpots) {
             this.totalSpots = totalSpots
             this.occupiedSpots = 0
-        }
-        
+        }   
+    }
+
+    boolean hasAvailableSpots() {
+        if (!this.hasLimitedSpots || this.occupiedSpots < this.totalSpots)
+            return true
+        return false
     }
 }
