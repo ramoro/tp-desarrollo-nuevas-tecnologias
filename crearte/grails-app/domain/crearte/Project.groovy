@@ -87,4 +87,20 @@ class Project {
         return (period.getDays() <= 0)
     }
 
+    boolean hasOnlyRolesWithLimitedSpots() {
+        for (role in this.roles) {
+            if (!role.hasLimitedSpots) return false
+        }
+
+        return true
+    }
+
+    boolean hasAllRolesCompleted() {
+        for (role in this.roles) {
+            if (role.occupiedSpots < role.totalSpots) return false
+        }
+        
+        return true
+    }
+
 }

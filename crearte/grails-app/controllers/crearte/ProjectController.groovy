@@ -84,16 +84,22 @@ class ProjectController {
         print(publishedProjects)
         for (project in publishedProjects) {
             try {
+
                 if(project.isExpired(actualDate)) {
                     projectService.finishProjectPublication(project)
                     userService.notifyUser(project.ownerDni, "Ha expirado la fecha de publicación de su projecto '${project.name}'.")
-                } else if (project.isAboutToExpire(actualDate)){
+                    continue
+                }
+
+                if (project.isAboutToExpire(actualDate)){
                     userService.notifyUser(project.ownerDni, "Su projecto publicado de nombre '${project.name}' esta por expirar.")
                 }
-                
+
                 Set<Role> rolesAlmostCompleted = project.getRolesAboutToBeCompleted()
 
-                if (!rolesAlmostCompleted.isEmpty()) {
+                if (project.hasOnlyRolesWithLimitedSpots() && project.hasAllRolesCompleted()) {
+                    userService.notifyUser(project.ownerDni, "Su projecto publicado de nombre '${project.name}' tiene todos sus roles con cupos completados.")
+                } else if (!rolesAlmostCompleted.isEmpty()) {
                     String message = "Su projecto publicado de nombre '${project.name}' tiene los siguientes roles por ser ocupados completamente:"
                     for(roleName in rolesAlmostCompleted) {
                         message += " '${roleName}' "
