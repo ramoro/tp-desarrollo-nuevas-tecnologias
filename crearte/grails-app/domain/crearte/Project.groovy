@@ -56,11 +56,31 @@ class Project {
             throw new Project.ProjectNotPublishedException("El projecto no está publicado.")
         }
 
-        Period period = Period.between(this.expirationDate, actualDate)
-
+        print(actualDate)
+        print(this.expirationDate)
+        print(Period.between(this.expirationDate, actualDate))
+        
+        Period period = Period.between(actualDate, this.expirationDate)
+        print("Period get days")
+        print(period.getDays())
+        print("Diferencia")
+        print(period.getDays() <= DaysLimitToNotifyExpiration)
         if (period.getDays() <= DaysLimitToNotifyExpiration) {
             return true
         }
         return false
     }
+
+    Set<String> getRolesAboutToBeCompleted() {
+        Set<String> rolesAlmostCompleted = []
+
+        for (role in roles) {
+            if (role.isAboutToBeCompleted()) {
+                rolesAlmostCompleted.add(role.name)
+            }
+        }
+
+        return rolesAlmostCompleted
+    }
+
 }

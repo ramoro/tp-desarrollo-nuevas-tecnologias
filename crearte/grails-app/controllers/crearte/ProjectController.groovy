@@ -78,7 +78,6 @@ class ProjectController {
         String dateString = params.date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         LocalDate actualDate = LocalDate.parse(dateString, formatter)
-        print(actualDate)
 
         def publishedProjects = Project.findAllByState(Project.ProjectState.PUBLISHED)
 
@@ -86,14 +85,25 @@ class ProjectController {
         for (project in publishedProjects) {
             try {
                 if (project.isAboutToExpire(actualDate)){
-                    userService.notifyUser(project.ownerDni, "Su projecto publicado de nombre ${project.name} esta por expirar.")
+                    userService.notifyUser(project.ownerDni, "Su projecto publicado de nombre '${project.name}' esta por expirar.")
                 }
+                
+                Set<Role> rolesAlmostCompleted = project.getRolesAboutToBeCompleted()
+                print(rolesAlmostCompleted)
+                if (!rolesAlmostCompleted.isEmpty()) {
+                    String message = "Su projecto publicado de nombre '${project.name}' tiene los siguientes roles por ser ocupados completamente:"
+                    for(roleName in rolesAlmostCompleted) {
+                        message += " '${roleName}' "
+                    }
+                    userService.notifyUser(project.ownerDni, message)
+                }
+
             } catch (Exception e) {
                 handleError(e)
             }    
         }
 
-        render (view:"/user/logUser")
+        render "Notificaciones correspondientes enviadas.", status: 200
     }
 
     def handleError(Exception e){

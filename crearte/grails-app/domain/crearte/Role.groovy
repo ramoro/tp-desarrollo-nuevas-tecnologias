@@ -8,6 +8,8 @@ class Role {
     int totalSpots
     int occupiedSpots
 
+    static final PercentageRoleAlmostCompleted = 90
+
     static constraints = {
         name blank: false, nullable: false
         description blank: false, nullable: false
@@ -15,7 +17,6 @@ class Role {
     }
 
     Role(String name, String description, boolean hasLimitedSpots, int totalSpots) {
-        print("Entro a constructor!!!")
         this.name = name
         this.description = description
         if (this.hasLimitedSpots) {
@@ -27,6 +28,17 @@ class Role {
     boolean hasAvailableSpots() {
         if (!this.hasLimitedSpots || this.occupiedSpots < this.totalSpots)
             return true
+        return false
+    }
+
+    boolean isAboutToBeCompleted() {
+        if (this.hasLimitedSpots) {
+
+            if (this.occupiedSpots * 100 / this.totalSpots >=  PercentageRoleAlmostCompleted) {
+                return true
+            }
+        }
+
         return false
     }
 }
