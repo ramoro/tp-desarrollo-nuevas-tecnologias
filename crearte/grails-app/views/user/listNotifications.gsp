@@ -6,7 +6,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-10">
                 <h1>Notificaciones</h1>
                 <div class="list-group">
                     <g:each in="${notifications}" var="notification">

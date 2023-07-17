@@ -22,16 +22,21 @@ class ProjectService {
 
     Project publish(String projectName, LocalDate publicationDate, LocalDate expirationDate){
 
-        Project project = Project.findByName(projectName);
+        Project project = Project.findByName(projectName)
 
         if (project && project.canBePublished(publicationDate, expirationDate)) {
-            project.publicationDate = publicationDate;
-            project.expirationDate = expirationDate;
-            project.state = Project.ProjectState.PUBLISHED;
-            project.save(flush: true, failOnError: true);
-            return project;
+            project.publicationDate = publicationDate
+            project.expirationDate = expirationDate
+            project.state = Project.ProjectState.PUBLISHED
+            project.save(flush: true, failOnError: true)
+            return project
         }
 
         throw new RuntimeException();
+    }
+
+    def finishProjectPublication(Project project) {
+        project.state = Project.ProjectState.EXPIRED
+        project.save(flush: true, failOnError: true)
     }
 }

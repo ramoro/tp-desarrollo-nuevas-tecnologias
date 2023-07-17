@@ -7,7 +7,8 @@ class Project {
 
     enum ProjectState {
         DRAFT,
-        PUBLISHED
+        PUBLISHED,
+        EXPIRED
     }
 
     static final DaysLimitToNotifyExpiration = 3
@@ -56,18 +57,11 @@ class Project {
             throw new Project.ProjectNotPublishedException("El projecto no está publicado.")
         }
 
-        print(actualDate)
-        print(this.expirationDate)
-        print(Period.between(this.expirationDate, actualDate))
-        
         Period period = Period.between(actualDate, this.expirationDate)
-        print("Period get days")
-        print(period.getDays())
-        print("Diferencia")
-        print(period.getDays() <= DaysLimitToNotifyExpiration)
         if (period.getDays() <= DaysLimitToNotifyExpiration) {
             return true
         }
+
         return false
     }
 
@@ -81,6 +75,16 @@ class Project {
         }
 
         return rolesAlmostCompleted
+    }
+
+    boolean isExpired(LocalDate actualDate) {
+        if (this.state != ProjectState.PUBLISHED) {
+            throw new Project.ProjectNotPublishedException("El projecto no está publicado.")
+        }
+
+        Period period = Period.between(actualDate, this.expirationDate)
+
+        return (period.getDays() <= 0)
     }
 
 }
