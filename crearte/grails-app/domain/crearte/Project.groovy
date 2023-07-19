@@ -34,27 +34,47 @@ class Project {
         expirationDate nullable: true
     }
 
+    static class ProjectIsInInvalidStateException extends RuntimeException {
+        ProjectIsInInvalidStateException() {
+            super("Project is not a DRAFT");
+        }
+    }
 
-    static class ProjectNotPublishedException extends Exception {
+    static class ProjectCreationDateExceedsPublicationDateException extends RuntimeException {
+        ProjectCreationDateExceedsPublicationDateException() {
+            super("Project has creationDate exceeds publicationDate");
+        }
+    }
+
+    static class ProjectPublicationDateExceedsExpirationDateException extends RuntimeException {
+        ProjectPublicationDateExceedsExpirationDateException() {
+            super("Project has publicationDate exceeds expirationDate");
+        }
+    }
+
+    static class ProjectHasNoRolesException extends RuntimeException {
+        ProjectHasNoRolesException() {
+            super("Project has no Roles");
+        }
+    }
+
+    static class ProjectNotPublishedException extends RuntimeException {
         ProjectNotPublishedException(String errorMessage) {
             super(errorMessage);
         }
     }
 
     boolean canBePublished(LocalDate publicationDate, LocalDate expirationDate) {
-        if (this.state != ProjectState.DRAFT) throw new RuntimeException("Project is not a DRAFT")
-        if (this.creationDate > publicationDate) throw new RuntimeException("""Project has creationDate > publicationDate. $this.creationDate $publicationDate""")
-        if (publicationDate > expirationDate) throw new RuntimeException("""Project has publicationDate > expirationDate. $publicationDate $expirationDate""")
-        if (this.roles.size() < 1) throw new RuntimeException("Project has no Roles")
-        return this.state == ProjectState.DRAFT &&
-               this.creationDate <= publicationDate &&
-               publicationDate <= expirationDate
-               this.roles.size() >= 1;
+        if (this.state != ProjectState.DRAFT) throw new ProjectIsInInvalidStateException()
+        if (this.creationDate > publicationDate) throw new ProjectCreationDateExceedsPublicationDateException()
+        if (publicationDate > expirationDate) throw new ProjectPublicationDateExceedsExpirationDateException()
+        if (this.roles.size() < 1) throw new ProjectHasNoRolesException()
+        return true
     }
 
     boolean isAboutToExpire(LocalDate actualDate) {
         if (this.state != ProjectState.PUBLISHED) {
-            throw new Project.ProjectNotPublishedException("El projecto no está publicado.")
+            throw new ProjectNotPublishedException("El projecto no está publicado.")
         }
 
         Period period = Period.between(actualDate, this.expirationDate)
@@ -79,7 +99,7 @@ class Project {
 
     boolean isExpired(LocalDate actualDate) {
         if (this.state != ProjectState.PUBLISHED) {
-            throw new Project.ProjectNotPublishedException("El projecto no está publicado.")
+            throw new ProjectNotPublishedException("El projecto no está publicado.")
         }
 
         Period period = Period.between(actualDate, this.expirationDate)
@@ -99,7 +119,7 @@ class Project {
         for (role in this.roles) {
             if (role.occupiedSpots < role.totalSpots) return false
         }
-        
+
         return true
     }
 
