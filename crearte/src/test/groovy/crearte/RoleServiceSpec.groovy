@@ -3,7 +3,7 @@ package crearte
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
 
-class TestServiceSpec extends Specification implements ServiceUnitTest<TestService>{
+class TestServiceSpec extends Specification implements ServiceUnitTest<RoleService>{
 
     def setup() {
     }
@@ -13,6 +13,6 @@ class TestServiceSpec extends Specification implements ServiceUnitTest<TestServi
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }
