@@ -79,38 +79,13 @@ class ProjectController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         LocalDate actualDate = LocalDate.parse(dateString, formatter)
 
-        def publishedProjects = Project.findAllByState(Project.ProjectState.PUBLISHED)
-
-        print(publishedProjects)
-        for (project in publishedProjects) {
-            try {
-
-                if(project.isExpired(actualDate)) {
-                    projectService.finishProjectPublication(project)
-                    userService.notifyUser(project.ownerDni, "Ha expirado la fecha de publicación de su projecto '${project.name}'.")
-                    continue
-                }
-
-                if (project.isAboutToExpire(actualDate)){
-                    userService.notifyUser(project.ownerDni, "Su projecto publicado de nombre '${project.name}' esta por expirar.")
-                }
-
-                Set<Role> rolesAlmostCompleted = project.getRolesAboutToBeCompleted()
-
-                if (project.hasOnlyRolesWithLimitedSpots() && project.hasAllRolesCompleted()) {
-                    userService.notifyUser(project.ownerDni, "Su projecto publicado de nombre '${project.name}' tiene todos sus roles con cupos completados.")
-                } else if (!rolesAlmostCompleted.isEmpty()) {
-                    String message = "Su projecto publicado de nombre '${project.name}' tiene los siguientes roles por ser ocupados completamente:"
-                    for(roleName in rolesAlmostCompleted) {
-                        message += " '${roleName}' "
-                    }
-                    userService.notifyUser(project.ownerDni, message)
-                }
-
-            } catch (Exception e) {
-                handleError(e)
-            }    
-        }
+        List<Project> publishedProjects = Project.findAllByState(Project.ProjectState.PUBLISHED)
+        
+        try {
+            projectService.updateProjects(publishedProjects, actualDate)
+        } catch (Exception e) {
+            handleError(e)
+        }    
 
         render "Notificaciones correspondientes enviadas.", status: 200
     }

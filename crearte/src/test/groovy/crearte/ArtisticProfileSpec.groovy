@@ -3,7 +3,7 @@ package crearte
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class ArtisticProfileSpec extends Specification implements DomainUnitTest<Organizer> {
+class ArtisticProfileSpec extends Specification implements DomainUnitTest<ArtisticProfile> {
 
     def setup() {
     }
@@ -11,8 +11,5 @@ class ArtisticProfileSpec extends Specification implements DomainUnitTest<Organi
     def cleanup() {
     }
 
-    void "test something"() {
-        expect:"fix me"
-            true == false
-    }
+
 }

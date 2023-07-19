@@ -52,6 +52,31 @@ class Project {
                this.roles.size() >= 1;
     }
 
+    void updateProject(LocalDate actualDate, User owner) {
+
+        if(this.isExpired(actualDate)) {
+            this.state = Project.ProjectState.EXPIRED
+            owner.notify("Ha expirado la fecha de publicación de su projecto '${this.name}'.")
+            return
+        }
+
+        if (this.isAboutToExpire(actualDate)){
+            owner.notify("Su projecto publicado de nombre '${this.name}' esta por expirar.")
+        }
+
+        Set<Role> rolesAlmostCompleted = this.getRolesAboutToBeCompleted()
+
+        if (this.hasOnlyRolesWithLimitedSpots() && this.hasAllRolesCompleted()) {
+            owner.notify("Su projecto publicado de nombre '${this.name}' tiene todos sus roles con cupos completados.")
+        } else if (!rolesAlmostCompleted.isEmpty()) {
+            String message = "Su projecto publicado de nombre '${this.name}' tiene los siguientes roles por ser ocupados completamente:"
+            for(roleName in rolesAlmostCompleted) {
+                message += " '${roleName}' "
+            }
+            owner.notify(message)
+        }
+    }
+
     boolean isAboutToExpire(LocalDate actualDate) {
         if (this.state != ProjectState.PUBLISHED) {
             throw new Project.ProjectNotPublishedException("El projecto no está publicado.")

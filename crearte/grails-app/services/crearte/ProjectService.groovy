@@ -35,8 +35,15 @@ class ProjectService {
         throw new RuntimeException();
     }
 
-    def finishProjectPublication(Project project) {
-        project.state = Project.ProjectState.EXPIRED
-        project.save(flush: true, failOnError: true)
+    def updateProjects(List<Project> publishedProjects, LocalDate actualDate) {
+
+        for (project in publishedProjects) {
+            
+            User owner = User.findByDni(project.ownerDni)
+            project.updateProject(actualDate, owner)
+
+            project.save(flush: true, failOnError: true)
+            owner.save(flush: true, failOnError: true)
+        }
     }
 }

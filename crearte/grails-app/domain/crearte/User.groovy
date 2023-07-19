@@ -46,4 +46,17 @@ class User {
         return this.artisticProfiles.any { profile -> profile.state == 1 }
     }
 
+    def setActiveProfile(ArtisticProfile profile) {
+        
+        if(profile.state == 0 && this.hasActiveProfile()) {
+            throw new User.InvalidProfileChangeException("El usuario ya tiene un perfil activo")
+        }
+
+        profile.state = profile.state == 0 ? 1 : 0
+    }
+
+    def notify(String message) {
+        this.notifications.add(message)
+    }
+
 }

@@ -11,8 +11,4 @@ class ProjectServiceSpec extends Specification implements ServiceUnitTest<Projec
     def cleanup() {
     }
 
-    void "test something"() {
-        expect:"fix me"
-            true == false
-    }
 }

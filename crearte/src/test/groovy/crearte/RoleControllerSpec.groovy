@@ -11,8 +11,4 @@ class RoleControllerSpec extends Specification implements ControllerUnitTest<Rol
     def cleanup() {
     }
 
-    void "test something"() {
-        expect:"fix me"
-            true == false
-    }
 }

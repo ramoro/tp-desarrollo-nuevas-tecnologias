@@ -11,8 +11,4 @@ class ApplicationSpec extends Specification implements DomainUnitTest<Applicatio
     def cleanup() {
     }
 
-    void "test something"() {
-        expect:"fix me"
-            true == false
-    }
 }
