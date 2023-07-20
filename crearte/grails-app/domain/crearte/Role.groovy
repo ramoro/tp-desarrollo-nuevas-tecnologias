@@ -33,7 +33,6 @@ class Role {
 
     boolean isAboutToBeCompleted() {
         if (this.hasLimitedSpots) {
-
             if (this.occupiedSpots * 100 / this.totalSpots >=  PercentageRoleAlmostCompleted) {
                 return true
             }
