@@ -22,6 +22,7 @@ class User {
             super(errorMessage);
         }
     }
+    
 
     def getSortedProjects(){
         this.projects.sort { project1, project2 ->

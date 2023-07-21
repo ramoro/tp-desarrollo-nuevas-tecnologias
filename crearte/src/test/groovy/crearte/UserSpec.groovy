@@ -27,6 +27,7 @@ class UserSpec extends Specification implements DomainUnitTest<User> {
             )
 
         when: "when the artist activates the artistic profile"
+        user.artisticProfiles.add(artisticProfile)
         user.setActiveProfile(artisticProfile)
 
         then:"the artistic profile changes its state to active"
@@ -39,17 +40,19 @@ class UserSpec extends Specification implements DomainUnitTest<User> {
         ArtisticProfile artisticProfile1 = new ArtisticProfile( "Jorgem", "CABA", 25, 1.73,
                 80, "www.youtube.com/2erqweq", "imagen.png"
             )
+        user.artisticProfiles.add(artisticProfile1)
         user.setActiveProfile(artisticProfile1)
 
         ArtisticProfile artisticProfile2 = new ArtisticProfile( "Jorgem2", "CABA2", 25, 1.73,
                 80, "www.youtube.com/2erqweq", "imagen2.png"
         )
+        user.artisticProfiles.add(artisticProfile2)
         
-        when: "when the artist activates this new profile"
+        when: "the artist activates this new profile"
         user.setActiveProfile(artisticProfile2)
 
-        then:"an exception is thrown"
+        then: "an exception is thrown"
         Exception e = thrown()
-        'El usuario ya tiene un perfil activo' == e.message
+        e.message == "El usuario ya tiene un perfil activo"
     }
 }

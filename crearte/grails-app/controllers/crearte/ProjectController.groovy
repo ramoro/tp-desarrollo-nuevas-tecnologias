@@ -78,14 +78,11 @@ class ProjectController {
         String dateString = params.date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         LocalDate actualDate = LocalDate.parse(dateString, formatter)
-
-        List<Project> publishedProjects = Project.findAllByState(Project.ProjectState.PUBLISHED)
-        
         try {
-            projectService.updateProjects(publishedProjects, actualDate)
+            projectService.updatePublishedProjects(actualDate)
         } catch (Exception e) {
             handleError(e)
-        }    
+        }             
 
         render "Notificaciones correspondientes enviadas.", status: 200
     }

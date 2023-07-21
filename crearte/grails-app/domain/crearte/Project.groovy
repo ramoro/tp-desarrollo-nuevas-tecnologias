@@ -29,7 +29,7 @@ class Project {
         description blank: false, nullable: false, minSize: 100
         state blank: false, nullable: false
         ownerDni matches: /\d{8}/, blank: false, nullable: false
-        creationDate nullable: false
+        creationDate nullable: true
         publicationDate nullable: true
         expirationDate nullable: true
     }
@@ -72,12 +72,11 @@ class Project {
         return true
     }
 
-    void updateProject(LocalDate actualDate, User owner) {
+    void notifyOwner(LocalDate actualDate, User owner) {
 
         if(this.isExpired(actualDate)) {
-            this.state = Project.ProjectState.EXPIRED
             owner.notify("Ha expirado la fecha de publicación de su projecto '${this.name}'.")
-            return
+            return 
         }
 
         if (this.isAboutToExpire(actualDate)){
@@ -91,7 +90,7 @@ class Project {
         } else if (!rolesAlmostCompleted.isEmpty()) {
             String message = "Su projecto publicado de nombre '${this.name}' tiene los siguientes roles por ser ocupados completamente:"
             for(roleName in rolesAlmostCompleted) {
-                message += " '${roleName}' "
+                message += " '${roleName}'"
             }
             owner.notify(message)
         }

@@ -31,19 +31,22 @@ class ProjectService {
             project.save(flush: true, failOnError: true)
             return project
         }
-
-        throw new RuntimeException();
+        throw new RuntimeException() 
     }
 
-    def updateProjects(List<Project> publishedProjects, LocalDate actualDate) {
+    def updatePublishedProjects(LocalDate actualDate) {
 
+        List<Project> publishedProjects = Project.findAllByState(Project.ProjectState.PUBLISHED)
         for (project in publishedProjects) {
             
             User owner = User.findByDni(project.ownerDni)
-            project.updateProject(actualDate, owner)
-
-            project.save(flush: true, failOnError: true)
+            project.notifyOwner(actualDate, owner)
             owner.save(flush: true, failOnError: true)
+
+            if (project.isExpired(actualDate)) {
+                project.state = Project.ProjectState.EXPIRED
+                project.save(flush: true, failOnError: true)
+            }
         }
     }
 }
