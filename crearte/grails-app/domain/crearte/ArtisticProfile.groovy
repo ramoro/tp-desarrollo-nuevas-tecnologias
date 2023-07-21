@@ -18,7 +18,6 @@ class ArtisticProfile {
         weight range: 40..300
     }
 
-
     ArtisticProfile(String artisticName, String locality, int age, float height, float weight,
     String reelLink, String profileImage) {
         this.artisticName = artisticName
@@ -30,5 +29,5 @@ class ArtisticProfile {
         this.profileImage = profileImage
         this.state = 0
     }
-    
+
 }

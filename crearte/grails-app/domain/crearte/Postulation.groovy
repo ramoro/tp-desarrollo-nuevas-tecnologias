@@ -3,6 +3,12 @@ import java.time.*
 
 class Postulation {
 
+    static class PostulationAlreadyExistsException extends RuntimeException {
+        PostulationAlreadyExistsException() {
+            super("Postulation already exists")
+        }
+    }
+
     enum PostulationState {
         PENDING,
         REJECTED,
@@ -11,19 +17,19 @@ class Postulation {
 
     LocalDate date
     PostulationState state
-    Role role
-    User user
-    Project project
+    String roleName
+    int ownerDni
+    String projectName
 
     static constraints = {
-        role blank: false, nullable: false
-        user blank: false, nullable: false
-        project blank: false, nullable: false
+        roleName blank: false, nullable: false
+        ownerDni blank: false, nullable: false
+        projectName blank: false, nullable: false
         state blank: false, nullable: false
     }
 
     boolean isEqual(Postulation p){
-        return p.user == this.user && p.project == this.project && p.role == this.role
+        return p.ownerDni == this.ownerDni && p.projectName == this.projectName && p.roleName == this.roleName
     }
 
 }

@@ -10,17 +10,30 @@ class PostulationController {
         LocalDate date = LocalDate.now()
         Postulation postulation
         try {
-            postulation = postulationService.createPostulation(params.roleName, params.ownerDni, params.projectName, date)
+            postulation = postulationService.createPostulation(params.roleName, params.ownerDni as Integer, params.projectName, date)
         }
-        catch (RuntimeException e) {
-            render 'ya existe'
+        catch (Role.RoleHasNoAvailableSpotsException e) {
+            flash.error = e.message
+            render e.message
             return
         }
-        User postulationProjectUser = User.findByDni(postulation.project.ownerDni)
+        catch (Postulation.PostulationAlreadyExistsException e) {
+            flash.error = e.message
+            render e.message
+            return
+        }
+        catch (Exception e) {
+            flash.error = e.message
+            render e.message
+            return
+        }
+        if (postulation == null)
+            throw new RuntimeException("ñññññ")
+        Project project = Project.findByName(params.projectName)
+        String postulationProjectUserName = User.findByDni(project.ownerDni).name
+        String currentUserName = User.findByDni(params.ownerDni).name
 
-        //postulationProjectUser = postulation.user
-
-        render(view: '/postulation/create', model: [postulation: postulation, postulationProjectUser: postulationProjectUser])
+        render(view: '/postulation/create', model: [postulation: postulation, currentUserName: currentUserName, postulationProjectUserName: postulationProjectUserName])
     }
 
 }

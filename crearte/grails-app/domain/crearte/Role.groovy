@@ -2,6 +2,12 @@ package crearte
 
 class Role {
 
+    static class RoleHasNoAvailableSpotsException extends RuntimeException {
+        RoleHasNoAvailableSpotsException() {
+            super("Role has no available spots")
+        }
+    }
+
     String name
     String description
     boolean hasLimitedSpots = false
@@ -22,7 +28,7 @@ class Role {
         if (this.hasLimitedSpots) {
             this.totalSpots = totalSpots
             this.occupiedSpots = 0
-        }   
+        }
     }
 
     boolean hasAvailableSpots() {
