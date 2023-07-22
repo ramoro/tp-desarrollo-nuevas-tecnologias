@@ -6,6 +6,7 @@ class User {
     String name
     String lastName
     String description
+    boolean isPremium
     Set<Project> projects = []
     Set<ArtisticProfile> artisticProfiles = []
     Set<Postulation> postulations = []

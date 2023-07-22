@@ -12,7 +12,8 @@ class Postulation {
     enum PostulationState {
         PENDING,
         REJECTED,
-        ACCEPTED
+        ACCEPTED,
+        WAITING_LIST
     }
 
     LocalDate date
@@ -28,8 +29,12 @@ class Postulation {
         state blank: false, nullable: false
     }
 
-    boolean isEqual(Postulation p){
-        return p.ownerDni == this.ownerDni && p.projectName == this.projectName && p.roleName == this.roleName
+    Postulation(LocalDate postulationDate, String roleName, int ownerDni, String projectName, Postulation.PostulationState state) {
+        this.date = postulationDate
+        this.roleName = roleName
+        this.ownerDni = ownerDni
+        this.projectName = projectName
+        this.state = state    
     }
 
 }

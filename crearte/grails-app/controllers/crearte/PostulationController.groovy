@@ -7,10 +7,9 @@ class PostulationController {
     PostulationService postulationService
 
     def create() {
-        LocalDate date = LocalDate.now()
         Postulation postulation
         try {
-            postulation = postulationService.createPostulation(params.roleName, params.ownerDni as Integer, params.projectName, date)
+            postulation = postulationService.createPostulation(params.roleName, params.ownerDni as Integer, params.projectName)
         }
         catch (Role.RoleHasNoAvailableSpotsException e) {
             flash.error = e.message
@@ -28,7 +27,7 @@ class PostulationController {
             return
         }
         if (postulation == null)
-            throw new RuntimeException("ñññññ")
+            throw new RuntimeException("Postulation is null")
         Project project = Project.findByName(params.projectName)
         String postulationProjectUserName = User.findByDni(project.ownerDni).name
         String currentUserName = User.findByDni(params.ownerDni).name

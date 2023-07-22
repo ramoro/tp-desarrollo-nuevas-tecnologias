@@ -15,7 +15,7 @@
             <div class="alert alert-success" role="alert">El rol <strong>${params.name}</strong> se ha creado correctamente!</div>
         </div>
     </g:else>
-    <g:link controller="project" action="show" params="[name: params.projectName]">
+    <g:link controller="project" action="show" params="[name: params.projectName, dni: params.ownerDni]">
       Ir al proyecto
     </g:link>
   </div>

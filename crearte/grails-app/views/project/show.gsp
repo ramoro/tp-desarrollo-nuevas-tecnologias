@@ -28,7 +28,12 @@
                         <g:if test="${project.roles}">
                             <ul>
                                 <g:each in="${project.roles}" var="role">
-                                    <li>${role.name}</li>
+                                <li>
+                                    ${role.name}
+                                    <g:if test="${params.dni.toInteger().equals(project.ownerDni.toInteger()) && role.hasWaitingList == true}">
+                                        [<g:link controller="project" action="deleteWaitingListFromRole" params="[roleName: role.name, projectName: project.name, dni: params.dni]">Eliminar lista de espera</g:link>]
+                                    </g:if>
+                                </li>
                                 </g:each>
                             </ul>
                         </g:if>
@@ -48,7 +53,7 @@
                 <h4>Fecha de expiracion</h4>
                 <g:datePicker name="expirationDate" value="${new Date()}" precision="day" noSelection="['':'-Choose-']"
                     relativeYears="[-2..7]" />
-                <div class="form-group">
+                <div class="form-group" style="margin-top:10px">
                     <g:submitButton name="publicar" value="Publicar" class="btn btn-primary" />
                 </div>
             </g:form>

@@ -13,6 +13,9 @@
         <g:elseif test="${postulation.state == 'REJECTED'}">
             Lo sentimos. Tu postulación fue rechazada.
         </g:elseif>
+        <g:elseif test="${postulation.state == 'WAITING_LIST'}">
+            El tope de cupos ha sido ocupado. Tu postulación fue puesta en lista de espera.
+        </g:elseif>
         <g:else>
             Felicitaciones. Tu postulación ha sido aceptada.
         </g:else>

@@ -13,10 +13,10 @@
                         <div class="card mb-3 shadow-sm rounded">
                             <div class="card-body">
                                 <h5 class="card-title"><a
-                                        href="${g.createLink(controller: 'project', action: 'show', params: [name: project.name])}">${project.name}</a>
+                                        href="${g.createLink(controller: 'project', action: 'show', params: [name: project.name, dni: params.dni])}">${project.name}</a>
                                 </h5>
                                 <a
-                                    href="${g.createLink(controller: 'role', action: 'create', params: [projectName: project.name])}">+
+                                    href="${g.createLink(controller: 'role', action: 'create', params: [projectName: project.name, dni: params.dni])}">+
                                     Crear rol</a>
                             </div>
                         </div>

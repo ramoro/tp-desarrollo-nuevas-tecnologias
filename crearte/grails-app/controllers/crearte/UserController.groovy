@@ -5,11 +5,17 @@ class UserController {
     UserService userService
 
     def logUser() {
+        if (params.isPremium == null) {
+            params.isPremium = false
+        }
+        else params.isPremium = true
+
         User user = new User(
             name: params.name,
             lastName: params.lastName,
             dni: params.dni,
-            description: params.description
+            description: params.description,
+            isPremium: params.isPremium
         ).save(failOnError: true)
 
         redirect action: 'showProfile', params: [dni: user.dni, name:user.name,lastName:user.lastName,description: user.description]

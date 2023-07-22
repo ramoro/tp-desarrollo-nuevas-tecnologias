@@ -13,6 +13,7 @@ class Role {
     boolean hasLimitedSpots = false
     int totalSpots
     int occupiedSpots
+    boolean hasWaitingList
 
     static final PercentageRoleAlmostCompleted = 90
 
@@ -25,9 +26,13 @@ class Role {
     Role(String name, String description, boolean hasLimitedSpots, int totalSpots) {
         this.name = name
         this.description = description
-        if (this.hasLimitedSpots) {
+        this.hasLimitedSpots = hasLimitedSpots
+        if (hasLimitedSpots) {
             this.totalSpots = totalSpots
             this.occupiedSpots = 0
+            this.hasWaitingList = true
+        } else {
+            this.hasWaitingList = false
         }
     }
 

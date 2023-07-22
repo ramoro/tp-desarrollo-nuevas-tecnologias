@@ -27,6 +27,15 @@
           <g:textArea name="description" id="description" required="true" rows="5" cols="40" style="resize:none;" class="form-control"/>
         </div>
 
+        <div class="form-group">
+          <div class="checkbox-container">
+            <div class="checkbox-label">
+              <g:checkBox name="isPremium" id="isPremium" class="form-check-input"/>
+              <span class="checkbox-text">Premium</span>
+            </div>
+          </div>
+        </div>
+
 
         <div class="form-group">
           <g:submitButton name="guardar" value="Guardar" class="btn btn-primary" />
@@ -36,6 +45,18 @@
   </div>
 
 </body>
+
+<style>
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-left: 30px;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      margin-right: 10px;
+    }
+</style>
 
 </html>
 

@@ -33,7 +33,8 @@
         </div>
 
         <input type="hidden" id="projectName" name="projectName" value="${params.projectName}">
-
+        <input type="hidden" id="ownerDni" name="ownerDni" value="${params.dni}">
+        
         <div class="form-group">
           <g:submitButton name="guardar" value="Guardar" class="btn btn-primary" />
         </div>

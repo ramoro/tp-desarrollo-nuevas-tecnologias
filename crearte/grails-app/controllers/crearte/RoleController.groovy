@@ -19,7 +19,8 @@ class RoleController {
         else params.hasLimitedSpots = true
 
         roleService.createRole(params.name, params.description, params.hasLimitedSpots, params.totalSpots.toInteger(), params.projectName)
-        render(view: 'save', model: [role: params.name, hasLimitedSpots: params.hasLimitedSpots, totalSpots:params.totalSpots, projectName: params.projectName])
+        render(view: 'save', model: [role: params.name, hasLimitedSpots: params.hasLimitedSpots, totalSpots:params.totalSpots, projectName: params.projectName, ownerDni: params.ownerDni])
     }
+    
 
 }

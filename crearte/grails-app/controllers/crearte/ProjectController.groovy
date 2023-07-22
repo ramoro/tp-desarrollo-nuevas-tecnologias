@@ -32,8 +32,7 @@ class ProjectController {
 
     def show() {
         Project project = Project.findByName(params.name)
-
-        render(view: '/project/show', model: [project: project])
+        render(view: '/project/show', model: [project: project, dni: params.dni])
     }
 
     def showOtherProject() {
@@ -85,6 +84,13 @@ class ProjectController {
         }             
 
         render "Notificaciones correspondientes enviadas.", status: 200
+    }
+
+    def deleteWaitingListFromRole() {
+        print(params.roleName)
+        print(params.projectName)
+        print(params.dni)
+        redirect(action: 'show', params: [name: params.projectName, dni: params.dni])
     }
 
     def handleError(Exception e){

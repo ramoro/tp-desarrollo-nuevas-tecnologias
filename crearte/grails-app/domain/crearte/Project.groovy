@@ -20,6 +20,7 @@ class Project {
     LocalDate expirationDate
     Set<Role> roles = []
     Set<String> plantillas
+    List<Postulation> postulations 
     ProjectState state
     int ownerDni
 
@@ -145,6 +146,27 @@ class Project {
         }
 
         return true
+    }
+
+    Postulation createUserPostulationToRole(Role role, User user, LocalDate date) {
+        if (!role.hasAvailableSpots())
+            throw new Role.RoleHasNoAvailableSpotsException()
+
+        for(postulation in this.postulations) {
+            if (postulation.ownerDni == user.dni && postulation.roleName == role.name) {
+                throw new Postulation.PostulationAlreadyExistsException()
+            }
+        }
+        Postulation postulation = new Postulation(date, role.name, user.dni, this.name, Postulation.PostulationState.PENDING)
+        this.postulations.add(postulation)
+        
+        return postulation
+    }
+
+    Role createRole(String name, String description, boolean hasLimitedSpots, int totalSpots) {
+        Role role = new Role(name, description, hasLimitedSpots, totalSpots)
+        this.roles.add(role)
+        return role
     }
 
 }
