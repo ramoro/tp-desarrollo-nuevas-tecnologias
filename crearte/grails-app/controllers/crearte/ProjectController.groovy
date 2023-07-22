@@ -7,6 +7,7 @@ class ProjectController {
 
     ProjectService projectService
     UserService userService
+    RoleService roleService
 
     def create() { 
         String dni = params.dni
@@ -87,10 +88,22 @@ class ProjectController {
     }
 
     def deleteWaitingListFromRole() {
-        print(params.roleName)
-        print(params.projectName)
-        print(params.dni)
-        redirect(action: 'show', params: [name: params.projectName, dni: params.dni])
+        // deshabilitar waitList del Role
+        Role role = Role.findByName(params.roleName)
+        roleService.deleteWaitingListFromRole(role)
+
+        // buscar la postulacion
+        def postulation = Postulation.findWhere(projectName: params.projectName, ownerDni: params.dni as Integer)
+
+        // borrarla de project.postulaciones
+        Project project = Project.findByName(params.projectName)
+        projectService.deletePostulationFromProject(project, postulation)
+
+        // borrarla de user.postulaciones
+        User user = User.findByDni(params.dni)
+        userService.deletePostulationFromUser(user, postulation)
+
+        redirect(action: 'show', params: [name: params.projectName, dni: params.dni, project: project])
     }
 
     def handleError(Exception e){

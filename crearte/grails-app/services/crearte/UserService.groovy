@@ -13,6 +13,11 @@ class UserService {
 
         profile.save(flush:true)
     }
+
+    def deletePostulationFromUser(User user, Postulation postulation) {
+        user.postulations.removeElement(postulation)
+        user.save(flush: true)
+    }
     
 }
 

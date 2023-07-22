@@ -13,4 +13,9 @@ class RoleService {
         role.save(failOnError: true)
         project.save(flush:true)
     }
+
+    def deleteWaitingListFromRole(Role role) {
+        role.hasWaitingList = false
+        role.save(flush:true, failOnError: true)
+    }
 }

@@ -49,4 +49,9 @@ class ProjectService {
             }
         }
     }
+
+    def deletePostulationFromProject(Project project, Postulation postulation) {
+        project.postulations.removeElement(postulation)
+        project.save(flush: true)
+    }
 }
