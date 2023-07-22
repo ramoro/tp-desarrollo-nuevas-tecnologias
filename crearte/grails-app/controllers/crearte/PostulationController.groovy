@@ -26,8 +26,7 @@ class PostulationController {
             render e.message
             return
         }
-        if (postulation == null)
-            throw new RuntimeException("Postulation is null")
+        
         Project project = Project.findByName(params.projectName)
         String postulationProjectUserName = User.findByDni(project.ownerDni).name
         String currentUserName = User.findByDni(params.ownerDni).name
