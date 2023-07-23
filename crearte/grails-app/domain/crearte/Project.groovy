@@ -178,15 +178,15 @@ class Project {
         return role
     }
 
-    List<Postulation> deletePostulationsWaiting(List<Postulation> postulationsWaiting) {
-        List<Postulation> removedPostulations = []
-        for(postulation in postulationsWaiting) {
-            postulation.state = Postulation.PostulationState.REJECTED
-            removedPostulations.add(postulation)
-            this.postulations.removeElement(postulation)
+    Postulation deletePostulationWaitingForUser(Postulation postulationWaiting, User userPostulated) {
+        if (userPostulated.isPremium) {
+            postulationWaiting.state = Postulation.PostulationState.WAITING_PREMIUM
+        } else {
+            postulationWaiting.state = Postulation.PostulationState.REJECTED
+            this.postulations.removeElement(postulationWaiting)
         }
-
-        return removedPostulations
+        
+        return postulationWaiting
     }
 
 }

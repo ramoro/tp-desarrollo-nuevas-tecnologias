@@ -28,9 +28,10 @@ class PostulationService {
 
         //Buscar postulaciones en estado de espera y borrarlas
         List<Postulation> postulationsWaiting = Postulation.findAllByProjectNameAndRoleNameAndState(project.name, role.name, Postulation.PostulationState.WAITING_LIST)
-        List<Postulation> removedPostulations = project.deletePostulationsWaiting(postulationsWaiting)
-        for (postulation in removedPostulations) {
-            postulation.save(flush: true)
+        for(postulation in postulationsWaiting) {
+            User userPostulated = User.findByDni(postulation.ownerDni)
+            Postulation postulationRejected = project.deletePostulationWaitingForUser(postulation, userPostulated)
+            postulationRejected.save(flush: true)
         }
         project.save(flush: true)
     }

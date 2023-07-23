@@ -37,7 +37,7 @@ class ProjectService {
     def updatePublishedProjects(LocalDate actualDate) {
 
         List<Project> publishedProjects = Project.findAllByState(Project.ProjectState.PUBLISHED)
-        print(publishedProjects)
+
         for (project in publishedProjects) {
             
             User owner = User.findByDni(project.ownerDni)

@@ -31,7 +31,7 @@ class PostulationController {
         Project project = Project.findByName(params.projectName)
         String postulationProjectUserName = User.findByDni(project.ownerDni).name
         String currentUserName = User.findByDni(params.ownerDni).name
-        print(postulation.state)
+
         render(view: '/postulation/create', model: [postulation: postulation, currentUserName: currentUserName, postulationProjectUserName: postulationProjectUserName])
     }
 
