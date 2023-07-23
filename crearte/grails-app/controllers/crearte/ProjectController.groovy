@@ -8,6 +8,7 @@ class ProjectController {
     ProjectService projectService
     UserService userService
     RoleService roleService
+    PostulationService postulationService
 
     def create() { 
         String dni = params.dni
@@ -60,7 +61,7 @@ class ProjectController {
         else 
             flash.error = "El proyecto no cumple con las condiciones para ser publicado"
 
-        render(view: '/project/show', model: [project: project])
+        redirect(action: 'show', params: [name: project.name, dni: params.dni, project: project])
     }
 
     def listProjects() {
@@ -85,25 +86,6 @@ class ProjectController {
         }             
 
         render "Notificaciones correspondientes enviadas.", status: 200
-    }
-
-    def deleteWaitingListFromRole() {
-        // deshabilitar waitList del Role
-        Role role = Role.findByName(params.roleName)
-        roleService.deleteWaitingListFromRole(role)
-
-        // buscar la postulacion
-        def postulation = Postulation.findWhere(projectName: params.projectName, ownerDni: params.dni as Integer)
-
-        // borrarla de project.postulaciones
-        Project project = Project.findByName(params.projectName)
-        projectService.deletePostulationFromProject(project, postulation)
-
-        // borrarla de user.postulaciones
-        User user = User.findByDni(params.dni)
-        userService.deletePostulationFromUser(user, postulation)
-
-        redirect(action: 'show', params: [name: params.projectName, dni: params.dni, project: project])
     }
 
     def handleError(Exception e){

@@ -149,15 +149,24 @@ class Project {
     }
 
     Postulation createUserPostulationToRole(Role role, User user, LocalDate date) {
-        if (!role.hasAvailableSpots())
-            throw new Role.RoleHasNoAvailableSpotsException()
+        Postulation.PostulationState initialState = Postulation.PostulationState.ACCEPTED
+        
+        if (!role.hasAvailableSpots()){
+            initialState = Postulation.PostulationState.WAITING_LIST
+            if(!role.hasWaitingList()) {
+                if (!user.isPremium)
+                    throw new Role.RoleHasNoAvailableSpotsException()
+
+                initialState = Postulation.PostulationState.WAITING_PREMIUM
+            }  
+        }
 
         for(postulation in this.postulations) {
             if (postulation.ownerDni == user.dni && postulation.roleName == role.name) {
                 throw new Postulation.PostulationAlreadyExistsException()
             }
         }
-        Postulation postulation = new Postulation(date, role.name, user.dni, this.name, Postulation.PostulationState.PENDING)
+        Postulation postulation = new Postulation(date, role.name, user.dni, this.name, initialState)
         this.postulations.add(postulation)
         
         return postulation
@@ -167,6 +176,17 @@ class Project {
         Role role = new Role(name, description, hasLimitedSpots, totalSpots)
         this.roles.add(role)
         return role
+    }
+
+    List<Postulation> deletePostulationsWaiting(List<Postulation> postulationsWaiting) {
+        List<Postulation> removedPostulations = []
+        for(postulation in postulationsWaiting) {
+            postulation.state = Postulation.PostulationState.REJECTED
+            removedPostulations.add(postulation)
+            this.postulations.removeElement(postulation)
+        }
+
+        return removedPostulations
     }
 
 }

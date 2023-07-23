@@ -4,7 +4,7 @@ class Role {
 
     static class RoleHasNoAvailableSpotsException extends RuntimeException {
         RoleHasNoAvailableSpotsException() {
-            super("Role has no available spots")
+            super("Los cupos del rol estan completos y no posee lista de espera.")
         }
     }
 
@@ -40,6 +40,10 @@ class Role {
         if (!this.hasLimitedSpots || this.occupiedSpots < this.totalSpots)
             return true
         return false
+    }
+
+    boolean hasWaitingList() {
+        return this.hasWaitingList
     }
 
     boolean isAboutToBeCompleted() {

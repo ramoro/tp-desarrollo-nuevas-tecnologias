@@ -13,7 +13,8 @@ class Postulation {
         PENDING,
         REJECTED,
         ACCEPTED,
-        WAITING_LIST
+        WAITING_LIST,
+        WAITING_PREMIUM
     }
 
     LocalDate date
