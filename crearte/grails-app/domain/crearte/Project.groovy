@@ -20,7 +20,7 @@ class Project {
     LocalDate expirationDate
     Set<Role> roles = []
     Set<String> plantillas
-    List<Postulation> postulations 
+    List<Postulation> postulations
     ProjectState state
     int ownerDni
 
@@ -77,7 +77,7 @@ class Project {
 
         if(this.isExpired(actualDate)) {
             owner.notify("Ha expirado la fecha de publicación de su projecto '${this.name}'.")
-            return 
+            return
         }
 
         if (this.isAboutToExpire(actualDate)){
@@ -149,8 +149,8 @@ class Project {
     }
 
     Postulation createUserPostulationToRole(Role role, User user, LocalDate date) {
-        Postulation.PostulationState initialState = Postulation.PostulationState.ACCEPTED
-        
+        Postulation.PostulationState initialState = Postulation.PostulationState.PENDING
+
         if (!role.hasAvailableSpots()){
             initialState = Postulation.PostulationState.WAITING_LIST
             if(!role.hasWaitingList()) {
@@ -158,7 +158,7 @@ class Project {
                     throw new Role.RoleHasNoAvailableSpotsException()
 
                 initialState = Postulation.PostulationState.WAITING_PREMIUM
-            }  
+            }
         }
 
         for(postulation in this.postulations) {
@@ -168,7 +168,7 @@ class Project {
         }
         Postulation postulation = new Postulation(date, role.name, user.dni, this.name, initialState)
         this.postulations.add(postulation)
-        
+
         return postulation
     }
 
