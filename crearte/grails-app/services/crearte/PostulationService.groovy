@@ -24,13 +24,13 @@ class PostulationService {
     }
 
 
-    def deletePostulationsWaitingForRole(Project project, Role role) {
+    def deletePostulationsOnWaitForRole(Project project, Role role) {
 
         //Buscar postulaciones en estado de espera y borrarlas
-        List<Postulation> postulationsWaiting = Postulation.findAllByProjectNameAndRoleNameAndState(project.name, role.name, Postulation.PostulationState.WAITING_LIST)
-        for(postulation in postulationsWaiting) {
+        List<Postulation> postulationsOnWait = Postulation.findAllByProjectNameAndRoleAndState(project.name, role, Postulation.PostulationState.WAITING_LIST)
+        for(postulation in postulationsOnWait) {
             User userPostulated = User.findByDni(postulation.ownerDni)
-            Postulation postulationRejected = project.deletePostulationWaitingForUser(postulation, userPostulated)
+            Postulation postulationRejected = project.deletePostulationsOnWaitForUser(postulation, userPostulated)
             postulationRejected.save(flush: true)
         }
         project.save(flush: true)

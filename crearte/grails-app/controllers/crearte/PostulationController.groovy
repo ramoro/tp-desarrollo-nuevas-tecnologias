@@ -50,7 +50,7 @@ class PostulationController {
         */
 
 
-        postulationService.deletePostulationsWaitingForRole(project, role)
+        postulationService.deletePostulationsOnWaitForRole(project, role)
 
         redirect(controller: 'project', action:'show', params: [name: params.projectName, dni: params.dni, project: project])
     }

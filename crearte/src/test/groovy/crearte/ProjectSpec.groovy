@@ -6,10 +6,10 @@ import java.time.LocalDate
 
 class ProjectSpec extends Specification implements DomainUnitTest<Project> {
 
-    User user
+    User user, userFrodo
     Project project
     Role role1
-    
+
     def setup() {
         user = new User(
             name: "Jorge",
@@ -20,6 +20,15 @@ class ProjectSpec extends Specification implements DomainUnitTest<Project> {
             projects: [],
             postulations: [],
             isPremium: false
+        )
+
+        userFrodo = new User(
+            name: "Frodo",
+            lastName: "Baggins",
+            dni: 12345678,
+            description: "Actor de La Comarca",
+            notifications: [],
+            projects: []
         )
 
         project = new Project(
@@ -34,7 +43,7 @@ class ProjectSpec extends Specification implements DomainUnitTest<Project> {
     
         role1 = new Role(
             name: "Actor principal",
-            description: "Actor de 20 a 25 años morocho", 
+            description: "Actor de 20 a 25 años morocho",
             hasLimitedSpots: true,
             totalSpots: 100,
             hasWaitingList: true)
@@ -85,7 +94,7 @@ class ProjectSpec extends Specification implements DomainUnitTest<Project> {
         project.roles.add(role1)
         Role role2 = new Role(
             name: "Actor secundario",
-            description: "Actor de 30 a 45 años rubio", 
+            description: "Actor de 30 a 45 años rubio",
             hasLimitedSpots: true,
             totalSpots: 100)
         project.roles.add(role2)
@@ -104,6 +113,68 @@ class ProjectSpec extends Specification implements DomainUnitTest<Project> {
         user.notifications[0] == "Su projecto publicado de nombre '${project.name}' tiene todos sus roles con cupos completados."
     }
 
+    void "A User creates a Postulation for a Role with no waiting list and no available spots in a Project results in an error"() {
+        Role roleWithNoAvailableSpots
+
+        given:
+        roleWithNoAvailableSpots = new Role(
+            name: "Actor principal",
+            description: "Actor de 20 a 25 años",
+            hasLimitedSpots: true,
+            hasWaitingList: false,
+            occupiedSpots: 1,
+            totalSpots: 1)
+        when:
+        Postulation p = project.createUserPostulationToRole(roleWithNoAvailableSpots, userFrodo, LocalDate.of(2023,07,23))
+        then:
+        Exception e = thrown()
+        e.message == 'Los cupos del rol estan completos y no posee lista de espera.'
+    }
+
+    void "A User creates a Postulation for a Role in a Project with available spots is successful"() {
+        given:
+        project.createUserPostulationToRole(role1, user, LocalDate.of(2023,07,23))
+        expect:
+        project.postulations.size() == 1
+    }
+
+    void "A User creates a Postulation for a Role with no waiting list and some available spots in a Project is successful"() {
+        Role roleWithNoAvailableSpots
+        Postulation postulation
+        given:
+        roleWithNoAvailableSpots = new Role(
+            name: "Actor principal",
+            description: "Actor de 20 a 25 años",
+            hasLimitedSpots: true,
+            hasWaitingList: true,
+            occupiedSpots: 1,
+            totalSpots: 1)
+        when:
+        postulation = project.createUserPostulationToRole(roleWithNoAvailableSpots, userFrodo, LocalDate.of(2023,07,23))
+        then:
+        postulation.state == Postulation.PostulationState.WAITING_LIST
+        project.postulations.size() == 1
+    }
+
+    void "A Premium User creates a Postulation for a Role with no waiting list and no available spots in a Project is successful"() {
+        Role roleWithNoAvailableSpots
+        Postulation postulation
+        given:
+        roleWithNoAvailableSpots = new Role(
+            name: "Actor principal",
+            description: "Actor de 20 a 25 años",
+            hasLimitedSpots: true,
+            hasWaitingList: false,
+            occupiedSpots: 1,
+            totalSpots: 1)
+        when:
+        userFrodo.isPremium = true
+        postulation = project.createUserPostulationToRole(roleWithNoAvailableSpots, userFrodo, LocalDate.of(2023,07,23))
+        then:
+        postulation.state == Postulation.PostulationState.WAITING_PREMIUM
+        project.postulations.size() == 1
+    }    
+    
     void "A waiting list is deleted for a certain role within a project"() {
         User user2 = new User(
             name: "Andres",

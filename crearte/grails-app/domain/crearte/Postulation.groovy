@@ -19,20 +19,19 @@ class Postulation {
 
     LocalDate date
     PostulationState state
-    String roleName
+    Role role
     int ownerDni
     String projectName
 
     static constraints = {
-        roleName blank: false, nullable: false
         ownerDni blank: false, nullable: false
         projectName blank: false, nullable: false
         state blank: false, nullable: false
     }
 
-    Postulation(LocalDate postulationDate, String roleName, int ownerDni, String projectName, Postulation.PostulationState state) {
+    Postulation(LocalDate postulationDate, Role role, int ownerDni, String projectName, Postulation.PostulationState state) {
         this.date = postulationDate
-        this.roleName = roleName
+        this.role = role
         this.ownerDni = ownerDni
         this.projectName = projectName
         this.state = state    
