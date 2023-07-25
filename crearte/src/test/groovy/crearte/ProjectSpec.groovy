@@ -17,7 +17,9 @@ class ProjectSpec extends Specification implements DomainUnitTest<Project> {
             dni: 40314876,
             description: "Productor y director de peliculas de terror y acción. MANEJO BUEN PRESUPUESTO. Requiero compromiso y buena disposicion cuando trabajo con alguien.",
             notifications: [],
-            projects: []
+            projects: [],
+            postulations: [],
+            isPremium: false
         )
 
         project = new Project(
@@ -26,14 +28,16 @@ class ProjectSpec extends Specification implements DomainUnitTest<Project> {
                 state: Project.ProjectState.DRAFT,
                 ownerDni: user.dni,
                 creationDate: LocalDate.of(2023,03,28),
-                roles: []
+                roles: [],
+                postulations: []
         )  
     
         role1 = new Role(
             name: "Actor principal",
             description: "Actor de 20 a 25 años morocho", 
             hasLimitedSpots: true,
-            totalSpots: 100)
+            totalSpots: 100,
+            hasWaitingList: true)
 
         user.projects.add(project)
     }
@@ -59,7 +63,7 @@ class ProjectSpec extends Specification implements DomainUnitTest<Project> {
 
     void "The convener is notified when there are 90% or more spots occupied within a role offered on an own published project"() {
 
-        given: "the convener has a project with a rol with limited spots and the project is published"
+        given: "the convener has a published project with a rol with limited spots"
         project.roles.add(role1)
 
         project.publicationDate = LocalDate.of(2023,04,05)
@@ -98,5 +102,69 @@ class ProjectSpec extends Specification implements DomainUnitTest<Project> {
         then:"the project owner is notified with a message that says that all the roles from his project have been completed"
         user.notifications.size == 1
         user.notifications[0] == "Su projecto publicado de nombre '${project.name}' tiene todos sus roles con cupos completados."
+    }
+
+    void "A waiting list is deleted for a certain role within a project"() {
+        User user2 = new User(
+            name: "Andres",
+            lastName: "Meollo",
+            dni: 40545678,
+            description: "Actor profesional listo para peliculas de acción. Doble de manos y de riesgo.",
+            notifications: [],
+            projects: [],
+            postulations: [],
+            isPremium: false
+        )
+        
+        given: "the convener has created a role with limited spots for an own published project,the role is completed and there are two artist that have entered at the waiting list for that role"
+        project.roles.add(role1)
+        project.publicationDate = LocalDate.of(2023,04,05)
+        project.expirationDate = LocalDate.of(2023,04,29)
+        project.state = Project.ProjectState.PUBLISHED
+
+        project.roles[0].occupiedSpots = 100
+
+        Postulation postulationUser = project.createUserPostulationToRole(project.roles[0],  user, LocalDate.of(2023,04,22))
+        Postulation postulationUser2 = project.createUserPostulationToRole(project.roles[0],  user2, LocalDate.of(2023,04,22))
+
+        when: "when the waiting list is deleted"
+        project.deletePostulationWaitingForUser(postulationUser, user)
+        project.deletePostulationWaitingForUser(postulationUser2, user2)
+
+        then:"all the postulations that were at the waiting list are rejected"
+        postulationUser.state == Postulation.PostulationState.REJECTED
+        postulationUser2.state == Postulation.PostulationState.REJECTED
+    }
+
+    void "A waiting list is deleted for a certain role within a project having a premium user in the waiting list"() {
+        User user2 = new User(
+            name: "Andres",
+            lastName: "Meollo",
+            dni: 40545678,
+            description: "Actor profesional listo para peliculas de acción. Doble de manos y de riesgo.",
+            notifications: [],
+            projects: [],
+            postulations: [],
+            isPremium: true
+        )
+        
+        given: "the convener has created a role with limited spots for an own published project,the role is completed, there are two artist that have entered at the waiting list for that role and one of that artists is a premium user"
+        project.roles.add(role1)
+        project.publicationDate = LocalDate.of(2023,04,05)
+        project.expirationDate = LocalDate.of(2023,04,29)
+        project.state = Project.ProjectState.PUBLISHED
+
+        project.roles[0].occupiedSpots = 100
+
+        Postulation postulationUser = project.createUserPostulationToRole(project.roles[0],  user, LocalDate.of(2023,04,22))
+        Postulation postulationUser2 = project.createUserPostulationToRole(project.roles[0],  user2, LocalDate.of(2023,04,22))
+
+        when: "when the waiting list is deleted"
+        project.deletePostulationWaitingForUser(postulationUser, user)
+        project.deletePostulationWaitingForUser(postulationUser2, user2)
+
+        then:"all the postulations that were at the waiting list are rejected except the premium user one, which postulation stays ina witing premium state"
+        postulationUser.state == Postulation.PostulationState.REJECTED
+        postulationUser2.state == Postulation.PostulationState.WAITING_PREMIUM
     }
 }
