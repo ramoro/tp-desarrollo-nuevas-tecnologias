@@ -28,10 +28,19 @@ class Postulation {
         state blank: false, nullable: false
     }
 
-    Postulation(LocalDate postulationDate, Role role, int ownerDni, String projectName, Postulation.PostulationState state) {
+    static class InvalidPostulationException extends RuntimeException {
+        InvalidPostulationException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
+
+    Postulation(LocalDate postulationDate, Role role, User owner, String projectName, Postulation.PostulationState state) {
+        if (!owner.hasActiveProfile())
+            throw new InvalidPostulationException("La postulacion no se ha podido crear debido a que el usuario no tiene un perfil artístico activo.")
+
         this.date = postulationDate
         this.role = role
-        this.ownerDni = ownerDni
+        this.ownerDni = owner.dni
         this.projectName = projectName
         this.state = state    
     }

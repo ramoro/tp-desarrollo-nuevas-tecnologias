@@ -148,7 +148,7 @@ class Project {
     }
 
     Postulation createUserPostulationToRole(Role role, User user, LocalDate date) {
-        Postulation.PostulationState initialState = Postulation.PostulationState.PENDING
+        Postulation.PostulationState initialState = Postulation.PostulationState.ACCEPTED
 
         if (!role.hasAvailableSpots()){
             initialState = Postulation.PostulationState.WAITING_LIST
@@ -165,7 +165,7 @@ class Project {
                 throw new Postulation.PostulationAlreadyExistsException()
             }
         }
-        Postulation postulation = new Postulation(date, role, user.dni, this.name, initialState)
+        Postulation postulation = new Postulation(date, role, user, this.name, initialState)
         this.postulations.add(postulation)
 
         return postulation

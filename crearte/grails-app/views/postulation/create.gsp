@@ -9,7 +9,7 @@
         Te has postulado para el rol <strong>${postulation.role.name}</strong> en el proyecto <strong>${postulation.projectName}</strong> de <strong>${postulationProjectUserName}</strong><br>
         <g:if test="${postulation.state.toString() == 'REJECTED'}">
             Lo sentimos. Tu postulación fue rechazada.
-        </g:elseif>
+        </g:if>
         <g:elseif test="${postulation.state.toString() == 'WAITING_LIST'}">
             El tope de cupos ha sido ocupado. Tu postulación fue puesta en lista de espera.
         </g:elseif>
