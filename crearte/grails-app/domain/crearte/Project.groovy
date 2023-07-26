@@ -148,7 +148,7 @@ class Project {
     }
 
     Postulation createUserPostulationToRole(Role role, User user, LocalDate date) {
-        Postulation.PostulationState initialState = Postulation.PostulationState.PENDING
+        Postulation.PostulationState initialState = Postulation.PostulationState.ACCEPTED
 
         if (!role.hasAvailableSpots()){
             initialState = Postulation.PostulationState.WAITING_LIST
@@ -184,7 +184,7 @@ class Project {
             postulationOnWait.state = Postulation.PostulationState.REJECTED
             this.postulations.removeElement(postulationOnWait)
         }
-        
+
         return postulationOnWait
     }
 
