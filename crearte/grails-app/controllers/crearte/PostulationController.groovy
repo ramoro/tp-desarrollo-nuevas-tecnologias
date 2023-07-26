@@ -9,17 +9,19 @@ class PostulationController {
 
     def create() {
         Postulation postulation
+        String currentUserName = User.findByDni(params.ownerDni).name
+
         try {
             postulation = postulationService.createPostulation(params.roleName, params.ownerDni as Integer, params.projectName)
         }
         catch (Role.RoleHasNoAvailableSpotsException e) {
-            flash.error = "La postulacion fue rechazada." + e.message
-            render flash.error
+            flash.error = "No hay mas cupos"
+            render(view: '/postulation/rejected', model: [currentUserName: currentUserName, dni: params.ownerDni])
             return
         }
         catch (Postulation.PostulationAlreadyExistsException e) {
-            flash.error = e.message
-            render e.message
+            flash.error = "Ya estás postulado"
+            render(view: '/postulation/alreadyExists', model: [currentUserName: currentUserName, dni: params.ownerDni])
             return
         }
         catch (Exception e) {
@@ -27,12 +29,11 @@ class PostulationController {
             render e.message
             return
         }
-        
+
         Project project = Project.findByName(params.projectName)
         String postulationProjectUserName = User.findByDni(project.ownerDni).name
-        String currentUserName = User.findByDni(params.ownerDni).name
 
-        render(view: '/postulation/create', model: [postulation: postulation, currentUserName: currentUserName, postulationProjectUserName: postulationProjectUserName])
+        render(view: '/postulation/create', model: [postulation: postulation, currentUserName: currentUserName, postulationProjectUserName: postulationProjectUserName, dni: params.ownerDni])
     }
 
     def deleteWaitingListFromRole() {
@@ -40,15 +41,6 @@ class PostulationController {
         Role role = Role.findByName(params.roleName)
         roleService.deleteWaitingListFromRole(role)
         Project project = Project.findByName(params.projectName)
-        /*
-        // buscar la postulacion
-        def postulation = Postulation.findWhere(projectName: params.projectName, ownerDni: params.dni as Integer)
-
-        // borrarla de project.postulaciones
-        Project project = Project.findByName(params.projectName)
-        projectService.deletePostulationFromProject(project, postulation)
-        */
-
 
         postulationService.deletePostulationOnWaitForRole(project, role)
 

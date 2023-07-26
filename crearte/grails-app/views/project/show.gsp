@@ -66,6 +66,9 @@
             <div>Fecha de publicación: ${project.publicationDate}</div>
             <div>Fecha de expiración: ${project.expirationDate}</div>
         </g:else>
+        <g:link controller="user" action="showProfile" params="[dni: params.dni]">
+            Volver al Perfil
+        </g:link>
     </div>
 </body>
 
