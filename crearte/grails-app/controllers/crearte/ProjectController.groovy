@@ -10,7 +10,7 @@ class ProjectController {
     RoleService roleService
     PostulationService postulationService
 
-    def create() { 
+    def create() {
         String dni = params.dni
         [dni: dni] // Pasamos el dni a la vista
         render(view: '/project/create')
@@ -58,14 +58,14 @@ class ProjectController {
         Project project = projectService.publish(params.name, publicationDate, expirationDate)
         if (project)
             flash.success = "Proyecto publicado exitosamente"
-        else 
+        else
             flash.error = "El proyecto no cumple con las condiciones para ser publicado"
 
         redirect(action: 'show', params: [name: project.name, dni: params.dni, project: project])
     }
 
     def listProjects() {
-        String dni = params.dni;
+        Integer dni = params.dni as Integer;
         Set<Project> projects = Project.getAll();
 
         projects = projects.findAll {
@@ -83,7 +83,7 @@ class ProjectController {
             projectService.updatePublishedProjects(actualDate)
         } catch (Exception e) {
             handleError(e)
-        }             
+        }
 
         render "Notificaciones correspondientes enviadas.", status: 200
     }
