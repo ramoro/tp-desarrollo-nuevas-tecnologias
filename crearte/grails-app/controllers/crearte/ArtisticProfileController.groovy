@@ -26,9 +26,17 @@ class ArtisticProfileController {
             // Pasamos el dni a la vista
             render(view: '/artisticProfile/create', model: [existingName: params.name, dni: params.dni])
         } else {
-            int age = params.age as Integer
-            float weight = params.weight as Float
-            float height = params.height as Float
+            int age
+            float weight
+            float height
+            try {
+                age = params.age as Integer
+                weight = params.weight as Float
+                height = params.height as Float
+            } catch (NumberFormatException e) {
+                render "La edad, altura o peso no son números válidos."
+            }
+            
 
             // Obtenemos el archivo de imagen del perfil artístico desde el comando FeaturedImageCommand
             MultipartFile profileImageFile = request.getFile('profileImage')

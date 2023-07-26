@@ -24,6 +24,9 @@ class Role {
     }
 
     Role(String name, String description, boolean hasLimitedSpots, int totalSpots) {
+        assert name != null
+        assert description != null
+
         this.name = name
         this.description = description
         this.hasLimitedSpots = hasLimitedSpots

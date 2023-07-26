@@ -10,13 +10,7 @@ class UserController {
         }
         else params.isPremium = true
 
-        User user = new User(
-            name: params.name,
-            lastName: params.lastName,
-            dni: params.dni,
-            description: params.description,
-            isPremium: params.isPremium
-        ).save(failOnError: true)
+        User user = userService.logUser(params.name, params.lastName, params.dni.toInteger(), params.description, params.isPremium)
 
         redirect action: 'showProfile', params: [dni: user.dni, name:user.name,lastName:user.lastName,description: user.description]
     }

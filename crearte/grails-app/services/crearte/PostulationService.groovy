@@ -24,7 +24,7 @@ class PostulationService {
     }
 
 
-    def deletePostulationsOnWaitForRole(Project project, Role role) {
+    def deletePostulationOnWaitForRole(Project project, Role role) {
 
         //Buscar postulaciones en estado de espera y borrarlas
         List<Postulation> postulationsOnWait = Postulation.findAllByProjectNameAndRoleAndState(project.name, role, Postulation.PostulationState.WAITING_LIST)

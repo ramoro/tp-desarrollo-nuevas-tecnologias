@@ -30,6 +30,9 @@
                                 <g:each in="${project.roles}" var="role">
                                 <li>
                                     ${role.name}
+                                    <g:if test="${role.hasLimitedSpots == true}">
+                                        [Cupos Ocupados: ${role.occupiedSpots}/${role.totalSpots}]
+                                    </g:if>
                                     <g:if test="${params.dni.toInteger().equals(project.ownerDni.toInteger()) && role.hasWaitingList == true}">
                                         [<g:link controller="postulation" action="deleteWaitingListFromRole" params="[roleName: role.name, projectName: project.name, dni: params.dni]">Eliminar lista de espera</g:link>]
                                     </g:if>

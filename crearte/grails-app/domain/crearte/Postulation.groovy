@@ -10,7 +10,6 @@ class Postulation {
     }
 
     enum PostulationState {
-        PENDING,
         REJECTED,
         ACCEPTED,
         WAITING_LIST,

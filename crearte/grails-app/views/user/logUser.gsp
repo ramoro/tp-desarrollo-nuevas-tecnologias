@@ -19,7 +19,8 @@
 
         <div class="form-group">
           <label for="dni">DNI:</label>
-          <g:textField name="dni" id="dni" required="true" class="form-control"/>
+          <input type="text" name="dni" id="dni" required pattern="\d{8}" title="DNI debe contener 8 dígitos numéricos" class="form-control" />
+          <div id="dniErrorMessage" class="error-message"></div>
         </div>
 
         <div class="form-group">
@@ -57,6 +58,22 @@
       margin-right: 10px;
     }
 </style>
+
+<script>
+  const dniInput = document.getElementById("dni");
+  const dniErrorMessage = document.getElementById("dniErrorMessage");
+
+  dniInput.addEventListener("input", function() {
+    const value = dniInput.value;
+    const isValid = /^\d{8}$/.test(value);
+
+    if (!isValid) {
+      dniErrorMessage.textContent = "DNI debe contener exactamente 8 dígitos numéricos";
+    } else {
+      dniErrorMessage.textContent = "";
+    }
+  });
+</script>
 
 </html>
 

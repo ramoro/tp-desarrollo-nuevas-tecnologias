@@ -7,10 +7,7 @@
     <div class="container">
         <h1 style="margin:10px">Hola ${currentUserName}!</h1>
         Te has postulado para el rol <strong>${postulation.role.name}</strong> en el proyecto <strong>${postulation.projectName}</strong> de <strong>${postulationProjectUserName}</strong><br>
-        <g:if test="${postulation.state.toString() == 'PENDING'}">
-            Tu postulación se encuentra <strong>pendiente</strong>. Te notificaremos cuando ...
-        </g:if>
-        <g:elseif test="${postulation.state.toString() == 'REJECTED'}">
+        <g:if test="${postulation.state.toString() == 'REJECTED'}">
             Lo sentimos. Tu postulación fue rechazada.
         </g:elseif>
         <g:elseif test="${postulation.state.toString() == 'WAITING_LIST'}">

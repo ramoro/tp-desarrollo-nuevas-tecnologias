@@ -5,6 +5,7 @@ class StaticController {
 
         // Construye la ruta completa de la imagen en tu servidor
         String imagePath = "${grailsApplication.config.upload.directory}/${filename}"
+        print(filename)
 
         // Devuelve la imagen como respuesta
         response.contentType = 'image/jpeg'

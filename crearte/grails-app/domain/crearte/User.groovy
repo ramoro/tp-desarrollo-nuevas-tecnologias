@@ -16,6 +16,8 @@ class User {
 
     static constraints = {
         dni matches: /\d{8}/, blank: false, nullable: false
+        name blank: false, nullable: false
+        lastName blank: false, nullabe: false
     }
 
     static class InvalidProfileChangeException extends Exception {

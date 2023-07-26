@@ -33,7 +33,9 @@
                                     <li>
                                         <g:form controller="postulation" action="create">
                                             ${role.name}
-                                            
+                                            <g:if test="${role.hasLimitedSpots == true}">
+                                                [Cupos Ocupados: ${role.occupiedSpots}/${role.totalSpots}]
+                                            </g:if>
                                             <g:hiddenField name="projectName" value="${params.name}" />
                                             <g:hiddenField name="ownerDni" value="${params.dni}" />
                                             <g:hiddenField name="roleName" value="${role.name}" />

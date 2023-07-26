@@ -19,7 +19,6 @@ class Project {
     LocalDate publicationDate
     LocalDate expirationDate
     Set<Role> roles = []
-    Set<String> plantillas
     List<Postulation> postulations
     ProjectState state
     int ownerDni
@@ -178,15 +177,15 @@ class Project {
         return role
     }
 
-    Postulation deletePostulationsOnWaitForUser(Postulation postulationWaiting, User userPostulated) {
+    Postulation deletePostulationsOnWaitForUser(Postulation postulationOnWait, User userPostulated) {
         if (userPostulated.isPremium) {
-            postulationWaiting.state = Postulation.PostulationState.WAITING_PREMIUM
+            postulationOnWait.state = Postulation.PostulationState.WAITING_PREMIUM
         } else {
-            postulationWaiting.state = Postulation.PostulationState.REJECTED
-            this.postulations.removeElement(postulationWaiting)
+            postulationOnWait.state = Postulation.PostulationState.REJECTED
+            this.postulations.removeElement(postulationOnWait)
         }
         
-        return postulationWaiting
+        return postulationOnWait
     }
 
 }
