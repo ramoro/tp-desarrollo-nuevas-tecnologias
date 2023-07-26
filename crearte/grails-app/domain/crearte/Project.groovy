@@ -184,7 +184,7 @@ class Project {
             postulationOnWait.state = Postulation.PostulationState.REJECTED
             this.postulations.removeElement(postulationOnWait)
         }
-        
+
         return postulationOnWait
     }
 
