@@ -15,10 +15,12 @@ class PostulationService {
         
         Postulation postulation = project.createUserPostulationToRole(role, user, date)
         
+        user.postulations.add(postulation)
         role.occupiedSpots += 1
         role.save(flush: true, failOnError: true)
         postulation.save(failOnError: true)
         project.save(failOnError: true)
+        user.save(failOnError: true)
 
         return postulation
     }
