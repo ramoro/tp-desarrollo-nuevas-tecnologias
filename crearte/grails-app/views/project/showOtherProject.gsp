@@ -28,8 +28,6 @@
                         <g:if test="${project.roles}">
                             <ul>
                                 <g:each in="${project.roles}" var="role">
-
-
                                     <li>
                                         <g:form controller="postulation" action="create">
                                             ${role.name}
@@ -56,6 +54,9 @@
                 </div>
             </div>
         </div>
+        <g:link controller="user" action="showProfile" params="[dni: params.dni]">
+            Volver al Perfil
+        </g:link>
     </div>
 </body>
 
